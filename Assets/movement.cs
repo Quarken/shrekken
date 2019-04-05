@@ -14,9 +14,8 @@ public class movement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!isLocalPlayer) return;
-		
 		if (Input.GetKey(KeyCode.RightArrow)) {
-			rb.AddForce(new Vector2(15, 0));
+			rb.AddForce(new Vector2(5, 0));
 		}
 	}
 }
