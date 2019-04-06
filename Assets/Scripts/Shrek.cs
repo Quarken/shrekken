@@ -6,11 +6,13 @@ public class Shrek : MonoBehaviour
 {
     private static string ground = "Ground";
     private bool isOnGround = false;
-    private readonly int movSpeed = 15;
-    private readonly int jumpHeight = 30;
+    private readonly int movSpeed = 25;
+    private readonly int jumpHeight = 250;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sprite;
+    private Vector2 movementVelocity;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,23 +20,27 @@ public class Shrek : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         rb.drag = 0;
+        movementVelocity = new Vector2(0, 0);
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            rb.velocity += new Vector2(-movSpeed, 0);
+        rb.velocity -= movementVelocity;
+        movementVelocity = new Vector2(0, 0);
+        if (Input.GetKey(KeyCode.LeftArrow)) {
+            movementVelocity += new Vector2(-movSpeed, 0);
             animator.SetBool("isWalking", true);
             sprite.flipX = true;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            rb.velocity += new Vector2(movSpeed, 0);
+        if (Input.GetKey(KeyCode.RightArrow)) {
+            movementVelocity += new Vector2(movSpeed, 0);
             animator.SetBool("isWalking", true);
             sprite.flipX = false;
         }
         if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
             rb.velocity = new Vector2(0, 0);
             animator.SetBool("isWalking", false);
+
             sprite.flipX = false;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && isOnGround) {
@@ -46,6 +52,8 @@ public class Shrek : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X)) {
             animator.Play("ShrekKick");
         }
+
+        rb.velocity += movementVelocity;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
