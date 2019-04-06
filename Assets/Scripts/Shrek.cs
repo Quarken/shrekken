@@ -47,11 +47,13 @@ public class Shrek : MonoBehaviour
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         } 
         if (Input.GetKeyDown(KeyCode.Z)) {
-            animator.Play("ShrekPunch");
+            animator.SetTrigger("Punch");
         }
         if (Input.GetKeyDown(KeyCode.X)) {
-            animator.Play("ShrekKick");
+            animator.SetTrigger("Kick");
         }
+
+        animator.SetBool("isInAir", !isOnGround);
 
         rb.velocity += movementVelocity;
     }
