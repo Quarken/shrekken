@@ -16,7 +16,7 @@ public class ShrekController : MonoBehaviour {
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool isWalking = false;
-    private bool isDead = false;
+    public bool isDead = false;
     private string ground = "Ground";
     public string shrekMode = "Shrump";
     float speed = 600f;

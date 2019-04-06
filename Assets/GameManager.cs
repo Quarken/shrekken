@@ -5,8 +5,16 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int matchTime = 60;
-    public Text timerText;
+    enum WinState {
+        PLAYER_ONE = 0,
+        PLAYER_TWO,
+        DRAW
+    }
+    public int match_time = 60;
+    public Text timer_text;
+    public ShrekController player_one;
+    public ShrekController player_two;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,22 +24,23 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(player_one.isDead) EndMatch(WinState.PLAYER_TWO);
+        else if(player_two.isDead) EndMatch(WinState.PLAYER_TWO);
     }
 
     IEnumerator Timer () {
-        while(matchTime > 0) {
+        while(match_time > 0) {
             yield return new WaitForSeconds (1);
-            matchTime--;
-            timerText.text = matchTime.ToString();
+            match_time--;
+            timer_text.text = match_time.ToString();
         }
-        EndMatch();
+        EndMatch(WinState.DRAW);
     }
 
     private void StartMatch() {
         StartCoroutine("Timer");
     }
-    private void EndMatch() {
-
+    private void EndMatch(WinState winner) {
+        Time.timeScale = 0;
     }
 }
