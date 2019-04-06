@@ -36,7 +36,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -45,15 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 100
-=======
-<<<<<<< HEAD
-  spritePixelsToUnits: 3
-=======
-  spritePixelsToUnits: 100
->>>>>>> 658f71d40405be953cd3a2df35ed4861f414890d
->>>>>>> 34daf8952c399f18e22c579b3e540aef5ae41512
+  spritePixelsToUnits: 2
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -77,9 +69,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   - serializedVersion: 2
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -91,24 +80,13 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-=======
->>>>>>> 658f71d40405be953cd3a2df35ed4861f414890d
->>>>>>> 34daf8952c399f18e22c579b3e540aef5ae41512
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: f29afc65227294db99e23c02e9326a69
-=======
-<<<<<<< HEAD
-    spriteID: 9be9d8eca840c4edbac0efb23021279d
-=======
-    spriteID: c94dad809e1d942a1a650cbbd13b640e
->>>>>>> 658f71d40405be953cd3a2df35ed4861f414890d
->>>>>>> 34daf8952c399f18e22c579b3e540aef5ae41512
+    spriteID: 1d3d3cf8ba3b6484294d0ba1470a78a1
     vertices: []
     indices: 
     edges: []
