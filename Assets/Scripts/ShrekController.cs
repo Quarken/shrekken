@@ -22,6 +22,7 @@ public class ShrekController : MonoBehaviour {
     float jumpSpeed = 100f;
     float punchDistance = 20f;
     int punchDamage = 10;
+    int kickDamage = 15;
     bool freezeMovement = false;
     int health = 100;
 
@@ -96,24 +97,28 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = false;
     }
 
-    void Punch () {
-        freezeMovement = true;
-        print ("Punch");
-        GameObject[] shreks = GameObject.FindGameObjectsWithTag (shrek);
+    void Attack(int damage) {
+        GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
-            if (Vector2.Distance (transform.position, shrek.transform.position) > punchDistance) continue;
-            print ("found shrek");
-            ShrekController script = gameObject.GetComponent<ShrekController> ();
-            script.TakeDamage (punchDamage);
+            if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
+            ShrekController script = gameObject.GetComponent<ShrekController>(); 
+            script.TakeDamage(damage);
         }
-        StartCoroutine (freeze (0.5f));
+    }
+
+    void Punch() {
+        freezeMovement = true;
+        print("Punch");
+        Attack(punchDamage);
+        StartCoroutine(freeze(0.5f));
         animator.SetTrigger (shrekMode + "Punch");
 
     }
 
     void Kick () {
         freezeMovement = true;
+        Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
         StartCoroutine (freeze (0.5f));
     }
