@@ -133,12 +133,14 @@ public class ShrekController : MonoBehaviour {
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
-            if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
+            var punchDirection = transform.position - shrek.transform.position;
+            bool rightDirection = (punchDirection.x >= 0f) == (direction.Equals("left"));
+            bool closeEnough = punchDirection.magnitude <= punchDistance;
+            if (!rightDirection || !closeEnough) continue;
             ShrekController script = shrek.GetComponent<ShrekController>();
             if (!script.isOnion) script.TakeDamage(damage); // Only take damage if not onion (protected)
         }
     }
-
     void Punch() {
         freezeMovement = true;
         Attack(punchDamage);
