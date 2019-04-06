@@ -11,7 +11,7 @@ public class ShrekController : NetworkBehaviour {
     private bool isGrounded = false;
     private bool isWalking = false;
     private string ground = "Ground";
-    private string shrekMode = "Shrek";
+    private string shrekMode = "Shreikh";
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 100f;
