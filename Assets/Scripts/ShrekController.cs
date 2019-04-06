@@ -25,6 +25,7 @@ public class ShrekController : MonoBehaviour {
     int kickDamage = 15;
     bool freezeMovement = false;
     int health = 100;
+    string direction = "right";
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
@@ -43,51 +44,61 @@ public class ShrekController : MonoBehaviour {
         isFlipped = false;
     }
 
-    void FixedUpdate () {
-        if (!freezeMovement) { }
-        // Left
-        if (Input.GetKey (left)) {
-            if (rb.velocity.x > -maxSpeed) {
-                rb.AddForce (new Vector2 (-speed, 0));
-            }
-        }
-
-        // Right
-        if (Input.GetKey (right)) {
-            if (rb.velocity.x < maxSpeed) {
-                rb.AddForce (new Vector2 (speed, 0));
-            }
-        }
-        // Walk animations
-        if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
-            animator.SetBool ("IsWalking", true);
-        } else {
-            animator.SetBool ("IsWalking", false);
-        }
-        // Flip player left
-        if (Input.GetKeyDown(left)) {
-            animator.transform.Rotate(0, -180, 0);
-        }
-        // Flip player right
-        if (Input.GetKeyDown(right)) {
+    void rotateChar(string direction) {
+        if (direction == "right") {
             animator.transform.Rotate(0, 180, 0);
         }
+        else {
+            animator.transform.Rotate(0, -180, 0);
+        }
+    }
 
-        // Jump
-        if (Input.GetKey (up) && isGrounded) {
-            rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
-        }
-        // Jump animation
-        if (Input.GetKeyDown (up)) {
-            animator.SetTrigger (shrekMode + "Jump");
-        }
-        if (Input.GetKeyDown (punch)) {
-            Punch ();
-        }
+    void Update () {
+        if (!freezeMovement) {
+            // Left
+            if (Input.GetKey (left)) {
+                if (direction != "left") {
+                    direction = "left";
+                    rotateChar(direction);
+                }
+                if (rb.velocity.x > -maxSpeed) {
+                    rb.AddForce (new Vector2 (-speed, 0));
+                }
+            }
 
-        // Kick animation
-        if (Input.GetKeyDown (kick)) {
-            Kick ();
+            // Right
+            if (Input.GetKey (right)) {
+                if (direction != "right") {
+                    direction = "right";
+                    rotateChar(direction);
+                }
+                if (rb.velocity.x < maxSpeed) {
+                    rb.AddForce (new Vector2 (speed, 0));
+                }
+            }
+            // Walk animations
+            if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
+                animator.SetBool ("IsWalking", true);
+            } else {
+                animator.SetBool ("IsWalking", false);
+            }
+
+            // Jump
+            if (Input.GetKey (up) && isGrounded) {
+                rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+            }
+            // Jump animation
+            if (Input.GetKeyDown (up)) {
+                animator.SetTrigger (shrekMode + "Jump");
+            }
+            if (Input.GetKeyDown (punch)) {
+                Punch ();
+            }
+
+            // Kick animation
+            if (Input.GetKeyDown (kick)) {
+                Kick ();
+            }
         }
         animator.SetBool ("IsGrounded", isGrounded);
     }
@@ -147,10 +158,6 @@ public class ShrekController : MonoBehaviour {
         }
 
         animator.SetBool ("IsGrounded", isGrounded);
-
-    }
-
-    void Update () {
 
     }
 
