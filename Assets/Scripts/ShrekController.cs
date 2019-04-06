@@ -16,6 +16,7 @@ public class ShrekController : MonoBehaviour {
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool isWalking = false;
+    private bool isDead = false;
     private string ground = "Ground";
     private string shrekMode = "Shrump";
     float speed = 600f;
@@ -34,6 +35,7 @@ public class ShrekController : MonoBehaviour {
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
+    public GameObject blood;
     public Slider healthSlider;
 
     private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
@@ -144,9 +146,27 @@ public class ShrekController : MonoBehaviour {
         StartCoroutine (freeze (0.5f));
     }
 
-    public void TakeDamage (int damage) {
-        this.health -= damage;
-        healthSlider.value = this.health;
+    public void TakeDamage(int damage) {
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        healthSlider.value = health;
+        if(health <= 0) OnDeath();
+        
+        print("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    private void OnDeath() {
+        rb.rotation = -90;
+        isDead = true; // PepeHands
+
+        if(isGrounded) {
+            SpawnBloodSprite();
+        }
+    }
+
+    private void SpawnBloodSprite() {
+        var pos = transform.position;
+        pos.z = 2;
+        Instantiate(blood, pos, Quaternion.identity);
     }
 
     void Onion() {
@@ -160,8 +180,12 @@ public class ShrekController : MonoBehaviour {
         isOnion = false;
     }
 
-    void OnCollisionEnter2D (Collision2D col) {
+    void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == ground) isGrounded = true;
+
+        if(isDead) {
+            SpawnBloodSprite();
+        }
     }
 
     void OnCollisionExit2D (Collision2D col) {

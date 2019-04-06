@@ -166,3 +166,6 @@ MonoBehaviour:
   up: up
   punch: z
   kick: x
+  maxHealth: 100
+  blood: {fileID: 736510100873249090, guid: 9da25bc879d694b93ba49df125dbd4c2, type: 3}
+  healthSlider: {fileID: 0}
