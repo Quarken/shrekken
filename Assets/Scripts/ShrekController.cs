@@ -29,9 +29,12 @@ public class ShrekController : MonoBehaviour {
     int health = 100;
     string direction = "right";
     public int maxHealth = 100;
+<<<<<<< Updated upstream
 
     private float onionDuration = 0.3f;
     private bool isOnion; // if true = protected
+=======
+>>>>>>> Stashed changes
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
@@ -46,7 +49,6 @@ public class ShrekController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D> ();
         rb.drag = 5f;
         animator = GetComponent<Animator> ();
-
         animator.SetTrigger (shrekMode + "Idle");
 
         isFlipped = false;
@@ -66,6 +68,11 @@ public class ShrekController : MonoBehaviour {
 
     void Update () {
         if (!freezeMovement) {
+            // Stop float
+            if (!Input.GetKey("left") && !Input.GetKey("right") && isGrounded) {
+                rb.velocity = Vector3.zero;
+            }
+
             // Left
             if (Input.GetKey (left)) {
                 if (direction != "left") {
@@ -87,16 +94,18 @@ public class ShrekController : MonoBehaviour {
                     rb.AddForce (new Vector2 (speed, 0));
                 }
             }
-            // Walk animations
+            //Walk animations
             if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
-                animator.SetBool ("IsWalking", true);
+               animator.SetBool ("IsWalking", true);
             } else {
                 animator.SetBool ("IsWalking", false);
             }
 
             // Jump
             if (Input.GetKey (up) && isGrounded) {
+                rb.velocity = Vector3.zero;
                 rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+                //rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
             }
             // Jump animation
             if (Input.GetKeyDown (up)) {
@@ -138,7 +147,7 @@ public class ShrekController : MonoBehaviour {
     void Punch() {
         freezeMovement = true;
         Attack(punchDamage);
-        StartCoroutine(freeze(0.5f));
+        StartCoroutine(freeze(0.3f));
         animator.SetTrigger (shrekMode + "Punch");
 
     }
@@ -146,7 +155,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = true;
         Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
-        StartCoroutine (freeze (0.5f));
+        StartCoroutine (freeze (0.3f));
     }
 
     public void TakeDamage(int damage) {
