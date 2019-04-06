@@ -41,6 +41,5 @@ public class GameManager : MonoBehaviour
         StartCoroutine("Timer");
     }
     private void EndMatch(WinState winner) {
-        Time.timeScale = 0;
     }
 }
