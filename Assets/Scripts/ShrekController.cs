@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ShrekController : MonoBehaviour
 {
-    private bool is_grounded = false;
-    private BoxCollider2D collision;
-    private Vector2 velocity = new Vector2(0,0);
-    private int speed = 80;
     private int gravity = 100;
-    private int jump_height = 60;
-    private int counter = 0;
-    private float epsilon = 0.01f;
     private Rigidbody2D rb;
+    private bool isGrounded = false;
+    private string ground = "Ground";
+    private string shrek = "Shrek";
+    float speed = 600f;
+    float maxSpeed = 75f;
+    float jumpSpeed = 150f;
+    float punchDistance = 50f;
+    int punchDamage = 10;
+    int health = 100;
 
     // Start is called before the first frame update
     void Start() {
@@ -22,8 +24,6 @@ public class ShrekController : MonoBehaviour
 
 
     void FixedUpdate() {
-        float speed = 600;
-        float maxSpeed = 75;
         if (Input.GetKey(KeyCode.RightArrow)) {
             if (rb.velocity.x < maxSpeed)
                 rb.AddForce(new Vector2(speed, 0));
@@ -32,43 +32,42 @@ public class ShrekController : MonoBehaviour
             if (rb.velocity.x > -maxSpeed)
                 rb.AddForce(new Vector2(-speed, 0));
         }
-
-
-        /* transform.Translate(velocity * Time.fixedDeltaTime);
-
-        if (Input.GetButtonDown("Jump") && is_grounded) {
-            velocity.y = jump_height;
+        if (Input.GetKey(KeyCode.UpArrow) && isGrounded) {
+            rb.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
         }
-
-        var horizontal_input = Input.GetAxis("Horizontal");
-        velocity.x = horizontal_input * speed;
-
-        velocity.y -= gravity * Time.fixedDeltaTime;
-
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, collision.size, 0);
-        is_grounded = false;
-        foreach (Collider2D hit in hits) {
-            if (hit == collision)
-                continue;
-
-            ColliderDistance2D collider_distance = hit.Distance(collision);
-            counter++;
-            print(counter + " " + transform.position + " " + hit + " " + collider_distance.normal);
-            
-            if (Vector2.Angle(collider_distance.normal, Vector2.up) < 90 && velocity.y < 0) {
-                velocity.y = 0;
-                is_grounded = true;
-            }
-
-            if (collider_distance.isOverlapped) {
-                print("overlapped");
-                transform.Translate(collider_distance.pointA - collider_distance.pointB);
-            }
-        }*/
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            Punch();
+        }
     }
+    void Punch() {
+        print("Punch");
+        GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
+        foreach (GameObject shrek in shreks) {
+            if (this.gameObject == shrek) continue;
+            if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
+            print("found shrek");
+            ShrekController script = gameObject.GetComponent<ShrekController>(); 
+            script.takeDamage(punchDamage);
+        }
+    }
+
+    public void takeDamage(int damage) {
+        print("take damage");
+        this.health -= damage;
+    }
+
+    void OnCollisionEnter2D(Collision2D col) {
+        print("enter " + col.gameObject.tag);
+        if (col.gameObject.tag == ground) isGrounded = true;
+    }
+
+    void OnCollisionExit2D(Collision2D col) {
+        print("exit " + col.gameObject.tag);
+        if (col.gameObject.tag == ground) isGrounded = false;
+    }
+
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 }
