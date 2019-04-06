@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ChooseCharacter : MonoBehaviour{
     
@@ -12,6 +13,9 @@ public class ChooseCharacter : MonoBehaviour{
 
     public string player1_name;
     public string player2_name;
+
+    private TextMeshProUGUI player1_text;
+    private TextMeshProUGUI player2_text;
     
     private SpriteRenderer player1_sprite;
     private SpriteRenderer player2_sprite;
@@ -22,7 +26,9 @@ public class ChooseCharacter : MonoBehaviour{
 
     public void Start() {
         player1_sprite = GameObject.Find("player1_sprite").GetComponent<SpriteRenderer>();
-        player2_sprite = GameObject.Find("player2_sprite").GetComponent<SpriteRenderer>();       
+        player2_sprite = GameObject.Find("player2_sprite").GetComponent<SpriteRenderer>();
+        player1_text = GameObject.Find("Player1_charactername").GetComponent<TextMeshProUGUI>();  
+        player2_text = GameObject.Find("Player2_charactername").GetComponent<TextMeshProUGUI>();       
     }
 
     public void backToMain() {
@@ -39,10 +45,12 @@ public class ChooseCharacter : MonoBehaviour{
         if (counter % 2 == 0) {
             player1_sprite.sprite = shrek;
             player1_name = "Shrek";
+            player1_text.text = "Shrek";
         }
         else {
             player2_sprite.sprite = shrek;
             player2_name = "Shrek";
+            player2_text.text = "Shrek";
         }
         counter++;
     }
@@ -52,10 +60,12 @@ public class ChooseCharacter : MonoBehaviour{
         if (counter % 2 == 0) {
             player1_sprite.sprite = shreik;
             player1_name = "Shreikh";
+            player1_text.text = "Shreik";
         }
         else {
             player2_sprite.sprite = shreik;
             player2_name = "Shreikh";
+            player2_text.text = "Shreik";
         }
         counter++;
     }
@@ -64,10 +74,12 @@ public class ChooseCharacter : MonoBehaviour{
         if (counter % 2 == 0) {
             player1_sprite.sprite = shrump;
             player1_name = "Shrump";
+            player1_text.text = "Shrump";
         }
         else {
             player2_sprite.sprite = shrump;
             player2_name = "Shrump";
+            player2_text.text = "Shrump";
         }
         counter++;
     }
