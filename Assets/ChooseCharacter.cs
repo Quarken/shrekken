@@ -11,8 +11,8 @@ public class ChooseCharacter : MonoBehaviour{
     public Sprite shreik;
     public Sprite shrump;
 
-    public string player1_name;
-    public string player2_name;
+    public string player1_name = "Shrek";
+    public string player2_name = "Shrek";
 
     private TextMeshProUGUI player1_text;
     private TextMeshProUGUI player2_text;

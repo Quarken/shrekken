@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 public class ShrekController : MonoBehaviour {
 
     public string left;
@@ -14,15 +14,16 @@ public class ShrekController : MonoBehaviour {
     private string shrek = "Shrek";
     private int gravity = 100;
     private Rigidbody2D rb;
+    private BoxCollider2D collider;
     private bool isGrounded = false;
     private bool isWalking = false;
     public bool isDead = false;
     private string ground = "Ground";
-    public string shrekMode = "Shrump";
+    private string shrekMode;
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
-    float punchDistance = 20f;
+    float punchDistance = 13f;
     int punchDamage = 10;
     int kickDamage = 15;
     bool freezeMovement = false;
@@ -43,7 +44,8 @@ public class ShrekController : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D> ();
         rb.drag = 5f;
-        animator = GetComponent<Animator> ();
+        animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
 
         isFlipped = false;
         isOnion = false;
@@ -52,9 +54,11 @@ public class ShrekController : MonoBehaviour {
 
         if (name.Equals("PlayerOne")) {
             shrekMode = PlayerInfo.player1;
+            print("P1 = " + shrekMode);
         }
         if (name.Equals("PlayerTwo")) {
             shrekMode = PlayerInfo.player2;
+            print("P2 = " + shrekMode);
         }
         animator.SetTrigger (shrekMode + "Idle");
     }
@@ -143,9 +147,11 @@ public class ShrekController : MonoBehaviour {
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
             var punchDirection = transform.position - shrek.transform.position;
+            print("direction: " + punchDirection + " " + collider.bounds.size.y/2);
             bool rightDirection = (punchDirection.x >= 0f) == (direction.Equals("left"));
             bool closeEnough = punchDirection.magnitude <= punchDistance;
-            if (!rightDirection || !closeEnough) continue;
+            bool rightHeight = Math.Abs(punchDirection.y) <= collider.bounds.size.y/2;
+            if (!rightDirection || !closeEnough || !rightHeight) continue;
             ShrekController script = shrek.GetComponent<ShrekController>();
             if (!script.isOnion) script.TakeDamage(damage); // Only take damage if not onion (protected)
         }
