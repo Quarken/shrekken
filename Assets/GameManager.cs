@@ -5,15 +5,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private bool isOngoing = false;
+    private string[] endTextsList = {
+        "it's all ogre now",
+        "get shrekt",
+        "check yourself before you shrek yourself",
+        "this is my swamp",
+        "game ogre"
+    };
     enum WinState {
         PLAYER_ONE = 0,
         PLAYER_TWO,
         DRAW
     }
     public int match_time = 60;
-    public Text timer_text;
-    public ShrekController player_one;
-    public ShrekController player_two;
+    public Text timerText;
+    public Text endText;
+
+    public ShrekController playerOne;
+    public ShrekController playerTwo;
 
     // Start is called before the first frame update
     void Start()
@@ -24,22 +34,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player_one.isDead) EndMatch(WinState.PLAYER_TWO);
-        else if(player_two.isDead) EndMatch(WinState.PLAYER_TWO);
+        if(!isOngoing) return;
+        if(playerOne.isDead) EndMatch(WinState.PLAYER_TWO);
+        else if(playerTwo.isDead) EndMatch(WinState.PLAYER_TWO);
     }
 
     IEnumerator Timer () {
         while(match_time > 0) {
             yield return new WaitForSeconds (1);
             match_time--;
-            timer_text.text = match_time.ToString();
+            timerText.text = match_time.ToString();
         }
         EndMatch(WinState.DRAW);
     }
 
     private void StartMatch() {
+        match_time = 60;
+        isOngoing = true;
         StartCoroutine("Timer");
     }
     private void EndMatch(WinState winner) {
+        StopCoroutine("Timer");
+        endText.text = endTextsList[Random.Range(0,endTextsList.Length)];
+        isOngoing = false;
     }
 }
