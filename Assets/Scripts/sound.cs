@@ -6,9 +6,10 @@ public class sound : MonoBehaviour
 {
     public AudioSource startSound;
     public AudioSource backgroundSound;
-    
+    public bool silent = false;    
     // Start is called before the first frame update
     void Start() {
+        if (silent) return;
         backgroundSound.Play();
         StartCoroutine(PlayStartSound());
     }
