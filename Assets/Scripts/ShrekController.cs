@@ -39,6 +39,7 @@ public class ShrekController : MonoBehaviour {
     public Slider healthSlider;
 
     private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
+    public sound mainCameraSound;
 
     // Start is called before the first frame update
     void Start () {
@@ -50,6 +51,8 @@ public class ShrekController : MonoBehaviour {
 
         isFlipped = false;
         isOnion = false;
+
+        mainCameraSound = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<sound>();
     }
 
     void rotateChar(string direction) {
@@ -161,6 +164,8 @@ public class ShrekController : MonoBehaviour {
         if(isGrounded) {
             SpawnBloodSprite();
         }
+
+        mainCameraSound.PlayItsOgre();
     }
 
     private void SpawnBloodSprite() {
