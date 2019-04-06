@@ -19,11 +19,11 @@ public class ShrekController : MonoBehaviour {
     private bool isWalking = false;
     public bool isDead = false;
     private string ground = "Ground";
-    public string shrekMode = "Shrump";
+    private string shrekMode;
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
-    float punchDistance = 20f;
+    float punchDistance = 13f;
     int punchDamage = 10;
     int kickDamage = 15;
     bool freezeMovement = false;
@@ -54,9 +54,11 @@ public class ShrekController : MonoBehaviour {
 
         if (name.Equals("PlayerOne")) {
             shrekMode = PlayerInfo.player1;
+            print("P1 = " + shrekMode);
         }
         if (name.Equals("PlayerTwo")) {
             shrekMode = PlayerInfo.player2;
+            print("P2 = " + shrekMode);
         }
         animator.SetTrigger (shrekMode + "Idle");
     }
