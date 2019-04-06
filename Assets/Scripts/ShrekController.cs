@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShrekController : MonoBehaviour {
 
@@ -25,8 +26,8 @@ public class ShrekController : MonoBehaviour {
     int health = 100;
 
     private float walkAnimationTreshold = 40f;
-
     private Animator animator;
+    public Slider healthSlider;
 
     // Start is called before the first frame update
     void Start () {
@@ -109,6 +110,8 @@ public class ShrekController : MonoBehaviour {
 
     public void TakeDamage(int damage) {
         this.health -= damage;
+        healthSlider.value = this.health;
+        print("takedamage " + this.health + " " + this.healthSlider.value);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
