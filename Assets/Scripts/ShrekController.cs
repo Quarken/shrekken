@@ -78,6 +78,7 @@ public class ShrekController : NetworkBehaviour {
 
     }
     void Punch() {
+        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , am punching.");
         CmdPunch();
         animator.SetTrigger (shrekMode + "Punch");
     }
@@ -96,6 +97,7 @@ public class ShrekController : NetworkBehaviour {
     }
 
     public void TakeDamage(int damage) {
+        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , took damage.");
         this.health -= damage;
     }
 
