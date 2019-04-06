@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShrekController : MonoBehaviour
+public class ShrekController : NetworkBehaviour
 {
     private int gravity = 100;
     private Rigidbody2D rb;
@@ -14,6 +15,7 @@ public class ShrekController : MonoBehaviour
     float jumpSpeed = 150f;
     float punchDistance = 50f;
     int punchDamage = 10;
+    [SyncVar]
     int health = 100;
 
     // Start is called before the first frame update
@@ -47,11 +49,12 @@ public class ShrekController : MonoBehaviour
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
             print("found shrek");
             ShrekController script = gameObject.GetComponent<ShrekController>(); 
-            script.takeDamage(punchDamage);
+            script.CmdTakeDamage(punchDamage);
         }
     }
 
-    public void takeDamage(int damage) {
+    [Command]
+    public void CmdTakeDamage(int damage) {
         this.health -= damage;
         print("take damage " + this.health);
     }
