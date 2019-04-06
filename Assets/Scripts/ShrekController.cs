@@ -15,7 +15,7 @@ public class ShrekController : NetworkBehaviour {
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 100f;
-    float punchDistance = 200f;
+    float punchDistance = 20f;
     int punchDamage = 10;
     [SyncVar]
     int health = 100;
@@ -83,9 +83,9 @@ public class ShrekController : NetworkBehaviour {
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
-            print("found shrek");
-            ShrekController script = gameObject.GetComponent<ShrekController>(); 
-            script.CmdTakeDamage(punchDamage);
+            var id = shrek.GetComponent<NetworkIdentity>();
+            print(id.netId.ToString() + " is doing damage");
+            CmdApplyDamage(id);
         }
         animator.SetTrigger (shrekMode + "Punch");
     }
@@ -94,9 +94,9 @@ public class ShrekController : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdTakeDamage(int damage) {
+    public void CmdApplyDamage(NetworkIdentity victim, int damage = 10) {
         this.health -= damage;
-        print("take damage " + this.health);
+        print(victim.netId.ToString() + " took damage");
     }
 
     void OnCollisionEnter2D(Collision2D col) {
