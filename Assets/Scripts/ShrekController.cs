@@ -18,7 +18,7 @@ public class ShrekController : MonoBehaviour {
     private bool isWalking = false;
     private bool isDead = false;
     private string ground = "Ground";
-    private string shrekMode = "Shrump";
+    public string shrekMode = "Shrump";
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 100f;
