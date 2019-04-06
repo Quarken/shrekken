@@ -29,6 +29,9 @@ public class ShrekController : MonoBehaviour {
     string direction = "right";
     public int maxHealth = 100;
 
+    private float onionDuration = 0.3f;
+    private bool isOnion; // if true = protected
+
     private float walkAnimationTreshold = 40f;
     private Animator animator;
     public Slider healthSlider;
@@ -44,6 +47,7 @@ public class ShrekController : MonoBehaviour {
         animator.SetTrigger (shrekMode + "Idle");
 
         isFlipped = false;
+        isOnion = false;
     }
 
     void rotateChar(string direction) {
@@ -121,8 +125,8 @@ public class ShrekController : MonoBehaviour {
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
-            ShrekController script = shrek.GetComponent<ShrekController>(); 
-            script.TakeDamage(damage);
+            ShrekController script = shrek.GetComponent<ShrekController>();
+            if (!script.isOnion) script.TakeDamage(damage); // Only take damage if not onion (protected)
         }
     }
 
@@ -146,7 +150,14 @@ public class ShrekController : MonoBehaviour {
     }
 
     void Onion() {
+        isOnion = true;
         animator.SetTrigger (shrekMode + "Onion");
+        StartCoroutine (hasProtection());
+    }
+
+    IEnumerator hasProtection () {
+        yield return new WaitForSeconds (onionDuration);
+        isOnion = false;
     }
 
     void OnCollisionEnter2D (Collision2D col) {
