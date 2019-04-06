@@ -7,11 +7,10 @@ public class Shrek : MonoBehaviour
     private static string ground = "Ground";
     private bool isOnGround = false;
     private readonly int movSpeed = 15;
-    private readonly int jumpHeight = 10;
+    private readonly int jumpHeight = 30;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sprite;
-    private Vector2 prevVel;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +22,6 @@ public class Shrek : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        print(rb.velocity + " " + (rb.velocity - prevVel));
-        prevVel = rb.velocity;
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             rb.velocity += new Vector2(-movSpeed, 0);
             animator.SetBool("isWalking", true);
@@ -40,9 +37,8 @@ public class Shrek : MonoBehaviour
             animator.SetBool("isWalking", false);
             sprite.flipX = false;
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isOnGround) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
-            //rb.velocity += Vector2.up*jumpHeight;
         } 
         if (Input.GetKeyDown(KeyCode.Z)) {
             animator.Play("ShrekPunch");
@@ -53,16 +49,19 @@ public class Shrek : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        print("CollisionEnter");
+        print("CollisionEnter " + collision.gameObject.tag + " " + ground + " " + collision.gameObject.tag.Equals(ground));
         if (collision.gameObject.tag.Equals(ground)) {
             isOnGround = true;
         }
+        print(isOnGround);
     }
 
     void OnCollisionExit2D(Collision2D collision) {
-        print("CollisionExit");
-        if (collision.gameObject.name.Equals(ground)) {
+        print("CollisionExit " + collision.gameObject.tag + " " + ground + " " + collision.gameObject.tag.Equals(ground));
+        if (collision.gameObject.tag.Equals(ground)) {
+            print("setting false");
             isOnGround = false;
         }
+        print(isOnGround);
     }
 }
