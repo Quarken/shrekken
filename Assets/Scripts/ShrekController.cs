@@ -20,7 +20,7 @@ public class ShrekController : NetworkBehaviour {
     [SyncVar]
     int health = 100;
 
-    private float walkAnimationTreshold = 20f;
+    private float walkAnimationTreshold = 40f;
 
     private Animator animator;
 
@@ -34,6 +34,8 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
+
+        if(!isClient) return;
 
         // Left
         if (Input.GetKey (KeyCode.LeftArrow)) {
@@ -89,9 +91,8 @@ public class ShrekController : NetworkBehaviour {
     [Command]
     public void CmdPunch() {
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
-        foreach (GameObject shrek in shreks) {
+        foreach (var shrek in shreks) {
             if (this.gameObject == shrek) continue;
-            if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
             shrek.GetComponent<ShrekController>().TakeDamage(10);
         }
     }

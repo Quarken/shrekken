@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5522654456324457662}
   m_Layer: 2
   m_Name: Shrek
-  m_TagString: Untagged
+  m_TagString: Shrek
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
