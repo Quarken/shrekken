@@ -31,6 +31,8 @@ public class ShrekController : MonoBehaviour {
     private Animator animator;
     public Slider healthSlider;
 
+    private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
+
     // Start is called before the first frame update
     void Start () {
         rb = GetComponent<Rigidbody2D> ();
@@ -38,53 +40,61 @@ public class ShrekController : MonoBehaviour {
         animator = GetComponent<Animator> ();
 
         animator.SetTrigger (shrekMode + "Idle");
+
+        isFlipped = false;
     }
 
     void FixedUpdate () {
-        if (!freezeMovement) {}
-            // Left
-            if (Input.GetKey(left)) {
-                if (rb.velocity.x > -maxSpeed) {
-                    rb.AddForce (new Vector2 (-speed, 0));
-                }
+        if (!freezeMovement) { }
+        // Left
+        if (Input.GetKey (left)) {
+            if (rb.velocity.x > -maxSpeed) {
+                rb.AddForce (new Vector2 (-speed, 0));
             }
+        }
 
         // Right
-        if (Input.GetKey(right)) {
+        if (Input.GetKey (right)) {
             if (rb.velocity.x < maxSpeed) {
                 rb.AddForce (new Vector2 (speed, 0));
             }
-
-            // Walk animations
-            if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
-                animator.SetBool ("IsWalking", true);
-            }
-            else {
-                animator.SetBool ("IsWalking", false);
-            }
+        }
+        // Walk animations
+        if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
+            animator.SetBool ("IsWalking", true);
+        } else {
+            animator.SetBool ("IsWalking", false);
+        }
+        // Flip player left
+        if (Input.GetKeyDown(left)) {
+            animator.transform.Rotate(0, -180, 0);
+        }
+        // Flip player right
+        if (Input.GetKeyDown(right)) {
+            animator.transform.Rotate(0, 180, 0);
         }
 
         // Jump
-        if (Input.GetKey(up) && isGrounded) {
+        if (Input.GetKey (up) && isGrounded) {
             rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
         }
         // Jump animation
-        if (Input.GetKeyDown(up)) {
+        if (Input.GetKeyDown (up)) {
             animator.SetTrigger (shrekMode + "Jump");
         }
-        if (Input.GetKeyDown(punch)) {
-            Punch();
+        if (Input.GetKeyDown (punch)) {
+            Punch ();
         }
 
         // Kick animation
-        if (Input.GetKeyDown(kick)) {
-            Kick();
+        if (Input.GetKeyDown (kick)) {
+            Kick ();
         }
         animator.SetBool ("IsGrounded", isGrounded);
     }
 
-    IEnumerator freeze(float time) {
-        yield return new WaitForSeconds(time);
+    IEnumerator freeze (float time) {
+        yield return new WaitForSeconds (time);
         freezeMovement = false;
     }
 
@@ -104,16 +114,17 @@ public class ShrekController : MonoBehaviour {
         Attack(punchDamage);
         StartCoroutine(freeze(0.5f));
         animator.SetTrigger (shrekMode + "Punch");
-        
+
     }
 
-    void Kick() {
+    void Kick () {
         freezeMovement = true;
         Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
-        StartCoroutine(freeze(0.5f));
+        StartCoroutine (freeze (0.5f));
     }
 
+<<<<<<< HEAD
     public void TakeDamage(int damage) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         healthSlider.value = health;
@@ -127,19 +138,28 @@ public class ShrekController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
+=======
+    public void TakeDamage (int damage) {
+        this.health -= damage;
+        healthSlider.value = this.health;
+        print ("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    void OnCollisionEnter2D (Collision2D col) {
+>>>>>>> 70cf57c9d47c25917184f031eb3010bfc38eb934
         if (col.gameObject.tag == ground) isGrounded = true;
     }
 
-    void OnCollisionExit2D(Collision2D col) {
+    void OnCollisionExit2D (Collision2D col) {
         if (col.gameObject.tag == ground) isGrounded = false;
 
         // Punch animation
-        if (Input.GetKeyDown(KeyCode.Z)) {
+        if (Input.GetKeyDown (KeyCode.Z)) {
             animator.SetTrigger (shrekMode + "Punch");
         }
 
         // Kick animation
-        if (Input.GetKeyDown(KeyCode.X)) {
+        if (Input.GetKeyDown (KeyCode.X)) {
             animator.SetTrigger (shrekMode + "Kick");
         }
 
