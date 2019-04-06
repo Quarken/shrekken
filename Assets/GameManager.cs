@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     private bool isOngoing = false;
     private string[] endTextsList = {
-        "it's all ogre now",
-        "get shrekt",
-        "check yourself before you shrek yourself",
-        "this is my swamp",
-        "game ogre"
+        "It's All Ogre Now",
+        "Get Shrekt",
+        "Check Yourself Before You Shrek Yourself",
+        "This Is My Swamp",
+        "Game Ogre",
+        "Shrexy Time"
     };
     enum WinState {
         PLAYER_ONE = 0,
