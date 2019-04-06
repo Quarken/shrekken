@@ -519,6 +519,16 @@ PrefabInstance:
       propertyPath: isDead
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 128152228}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 128152228}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
 --- !u!1 &128152227
@@ -550,7 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973a6dc3f7e8c4a0e9de5eca43202638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  match_time: 60
+  match_time: 5
   timerText: {fileID: 76341149}
   endText: {fileID: 446877614}
   playerOne: {fileID: 2035162054}
@@ -2746,5 +2756,15 @@ PrefabInstance:
       propertyPath: shrekMode
       value: Shrek
       objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 128152228}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 128152228}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
