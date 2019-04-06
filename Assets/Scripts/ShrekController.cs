@@ -21,7 +21,7 @@ public class ShrekController : MonoBehaviour {
     public string shrekMode = "Shrump";
     float speed = 600f;
     float maxSpeed = 75f;
-    float jumpSpeed = 100f;
+    float jumpSpeed = 160f;
     float punchDistance = 20f;
     int punchDamage = 10;
     int kickDamage = 15;
@@ -29,13 +29,8 @@ public class ShrekController : MonoBehaviour {
     int health = 100;
     string direction = "right";
     public int maxHealth = 100;
-<<<<<<< Updated upstream
-
     private float onionDuration = 0.3f;
     private bool isOnion; // if true = protected
-=======
->>>>>>> Stashed changes
-
     private float walkAnimationTreshold = 40f;
     private Animator animator;
     public GameObject blood;
@@ -69,8 +64,8 @@ public class ShrekController : MonoBehaviour {
     void Update () {
         if (!freezeMovement) {
             // Stop float
-            if (!Input.GetKey("left") && !Input.GetKey("right") && isGrounded) {
-                rb.velocity = Vector3.zero;
+            if (!Input.GetKey(left) && !Input.GetKey(right) && isGrounded) {
+                rb.velocity = Vector2.zero;
             }
 
             // Left
