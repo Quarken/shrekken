@@ -19,18 +19,22 @@ public class ShrekController : MonoBehaviour {
     private bool isWalking = false;
     public bool isDead = false;
     private string ground = "Ground";
-    private string shrekMode;
+    private string shrekMode = "Shrek";
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
     float punchDistance = 13f;
-    int punchDamage = 10;
+    float punchDamage = 10;
     int kickDamage = 15;
     bool freezeMovement = false;
-    int health = 100;
+    float health = 100;
     string direction = "right";
     public int maxHealth = 100;
     private float onionDuration = 0.3f;
+    private float minChargeTime = 0.3f;
+    private float maxChargeTime = 3f;
+    private float maxChargeFactor = 2.5f;
+    private DateTime lastChargeStart;
     private bool isOnion; // if true = protected
     private float walkAnimationTreshold = 40f;
     private Animator animator;
@@ -39,6 +43,7 @@ public class ShrekController : MonoBehaviour {
     private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
     public sound mainCameraSound;
     public GameManager gameManager;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start () {
@@ -46,19 +51,18 @@ public class ShrekController : MonoBehaviour {
         rb.drag = 5f;
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        lastChargeStart = DateTime.Now;
         isFlipped = false;
         isOnion = false;
 
         mainCameraSound = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<sound>();
 
-        if (name.Equals("PlayerOne")) {
+        if (name.Equals("PlayerOne") && !PlayerInfo.player1.Equals("")) {
             shrekMode = PlayerInfo.player1;
-            print("P1 = " + shrekMode);
         }
-        if (name.Equals("PlayerTwo")) {
+        if (name.Equals("PlayerTwo") && !PlayerInfo.player2.Equals("")) {
             shrekMode = PlayerInfo.player2;
-            print("P2 = " + shrekMode);
         }
         animator.SetTrigger (shrekMode + "Idle");
     }
@@ -120,7 +124,10 @@ public class ShrekController : MonoBehaviour {
                 animator.SetTrigger (shrekMode + "Jump");
             }
             if (Input.GetKeyDown (punch)) {
-                Punch ();
+                PunchStart();
+            }
+            if (Input.GetKeyUp(punch)) {
+                PunchEnd();
             }
 
             // Kick animation
@@ -142,7 +149,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = false;
     }
 
-    void Attack(int damage) {
+    void Attack(float damage) {
         if (gameManager.match_time <= 0) return;
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
@@ -157,13 +164,19 @@ public class ShrekController : MonoBehaviour {
             if (!script.isOnion) script.TakeDamage(damage); // Only take damage if not onion (protected)
         }
     }
-    void Punch() {
+    void PunchStart() {
         freezeMovement = true;
-        Attack(punchDamage);
+        lastChargeStart = DateTime.Now;
         StartCoroutine(freeze(0.3f));
         animator.SetTrigger (shrekMode + "Punch");
-
     }
+
+    void PunchEnd() {
+        float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
+        float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
+        Attack(punchDamage*(1.0f + chargeFactor+maxChargeFactor));
+    }
+
     void Kick () {
         freezeMovement = true;
         Attack(kickDamage);
@@ -171,12 +184,19 @@ public class ShrekController : MonoBehaviour {
         StartCoroutine (freeze (0.45f));
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         healthSlider.value = health;
         if(health <= 0) OnDeath();
-        
+        StartCoroutine (tookHitAnimation());
+        mainCameraSound.PlayHitSound();
         print("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    IEnumerator tookHitAnimation() {
+        spriteRenderer.color = new Color(255, 0, 0);
+        yield return new WaitForSeconds (0.1f);
+        spriteRenderer.color = new Color(255, 255, 255);
     }
 
     private void OnDeath() {
@@ -187,7 +207,18 @@ public class ShrekController : MonoBehaviour {
             SpawnBloodSprite();
         }
 
-        mainCameraSound.PlayItsOgre();
+        StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
+    }
+
+    IEnumerator turnDownBackgroundMusicAndPlayAllGore () {
+        if (mainCameraSound.backgroundSound.volume != 0) {
+        yield return new WaitForSeconds (0.1f);
+        mainCameraSound.backgroundSound.volume -= 0.05f;
+        StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
+        }
+        else {
+            mainCameraSound.PlayItsOgre();
+        }
     }
 
     private void SpawnBloodSprite() {
