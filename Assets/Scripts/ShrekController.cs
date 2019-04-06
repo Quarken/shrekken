@@ -25,11 +25,8 @@ public class ShrekController : MonoBehaviour {
     int kickDamage = 15;
     bool freezeMovement = false;
     int health = 100;
-<<<<<<< HEAD
     string direction = "right";
-=======
     public int maxHealth = 100;
->>>>>>> 685aa4561d1d7dee13ca9dd49d5ff6065c977dc6
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
@@ -117,20 +114,18 @@ public class ShrekController : MonoBehaviour {
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
-            ShrekController script = gameObject.GetComponent<ShrekController>(); 
+            ShrekController script = shrek.GetComponent<ShrekController>(); 
             script.TakeDamage(damage);
         }
     }
 
     void Punch() {
         freezeMovement = true;
-        print("Punch");
         Attack(punchDamage);
         StartCoroutine(freeze(0.5f));
         animator.SetTrigger (shrekMode + "Punch");
 
     }
-
     void Kick () {
         freezeMovement = true;
         Attack(kickDamage);
@@ -141,7 +136,6 @@ public class ShrekController : MonoBehaviour {
     public void TakeDamage (int damage) {
         this.health -= damage;
         healthSlider.value = this.health;
-        print ("takedamage " + this.health + " " + this.healthSlider.value);
     }
 
     void OnCollisionEnter2D (Collision2D col) {
