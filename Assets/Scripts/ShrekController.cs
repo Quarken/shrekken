@@ -25,6 +25,7 @@ public class ShrekController : MonoBehaviour {
     int kickDamage = 15;
     bool freezeMovement = false;
     int health = 100;
+    public int maxHealth = 100;
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
@@ -114,9 +115,15 @@ public class ShrekController : MonoBehaviour {
     }
 
     public void TakeDamage(int damage) {
-        this.health -= damage;
-        healthSlider.value = this.health;
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        healthSlider.value = health;
+        if(health <= 0) OnDeath();
+        
         print("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    private void OnDeath() {
+        rb.rotation = -90;
     }
 
     void OnCollisionEnter2D(Collision2D col) {
