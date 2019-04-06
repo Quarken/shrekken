@@ -13,7 +13,7 @@ public class ShrekController : NetworkBehaviour
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 150f;
-    float punchDistance = 50f;
+    float punchDistance = 200f;
     int punchDamage = 10;
     [SyncVar]
     int health = 100;
