@@ -51,7 +51,7 @@ public class ShrekController : NetworkBehaviour
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
             print("shrekkyboi3");
             ShrekController script = gameObject.GetComponent<ShrekController>(); 
-            script.CmdTakeDamage(punchDamage);
+            CmdDoDamage(punchDamage, script);
         }
     }
 
