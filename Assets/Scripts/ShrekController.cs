@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class ShrekController : NetworkBehaviour {
+public class ShrekController : MonoBehaviour {
 
+    public string left;
+    public string right;
+    public string up;
+    public string punch;
+    public string kick;
     private string shrek = "Shrek";
     private int gravity = 100;
     private Rigidbody2D rb;
@@ -17,7 +21,6 @@ public class ShrekController : NetworkBehaviour {
     float jumpSpeed = 100f;
     float punchDistance = 20f;
     int punchDamage = 10;
-    [SyncVar]
     int health = 100;
 
     private float walkAnimationTreshold = 40f;
@@ -34,17 +37,15 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
-        if(!isLocalPlayer) return;
-
         // Left
-        if (Input.GetKey (KeyCode.LeftArrow)) {
+        if (Input.GetKey(left)) {
             if (rb.velocity.x > -maxSpeed) {
                 rb.AddForce (new Vector2 (-speed, 0));
             }
         }
 
         // Right
-        if (Input.GetKey (KeyCode.RightArrow)) {
+        if (Input.GetKey(right)) {
             if (rb.velocity.x < maxSpeed) {
                 rb.AddForce (new Vector2 (speed, 0));
             }
@@ -59,19 +60,19 @@ public class ShrekController : NetworkBehaviour {
         }
 
         // Jump
-        if (Input.GetKey (KeyCode.UpArrow) && isGrounded) {
+        if (Input.GetKey(up) && isGrounded) {
             rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
         }
         // Jump animation
-        if (Input.GetKeyDown (KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(up)) {
             animator.SetTrigger (shrekMode + "Jump");
         }
-        if (Input.GetKeyDown(KeyCode.Z)) {
+        if (Input.GetKeyDown(punch)) {
             Punch();
         }
 
         // Kick animation
-        if (Input.GetKeyDown(KeyCode.X)) {
+        if (Input.GetKeyDown(kick)) {
             Kick();
         }
 
@@ -79,25 +80,20 @@ public class ShrekController : NetworkBehaviour {
 
     }
     void Punch() {
-        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , am punching.");
-        CmdPunch();
-        animator.SetTrigger (shrekMode + "Punch");
-    }
-    void Kick() {
-        animator.SetTrigger (shrekMode + "Kick");
-    }
-
-    [Command]
-    public void CmdPunch() {
+        print("punch");
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (var shrek in shreks) {
             if (this.gameObject == shrek) continue;
             shrek.GetComponent<ShrekController>().TakeDamage(10);
         }
+        animator.SetTrigger (shrekMode + "Punch");
+    }
+    void Kick() {
+        print("kick");
+        animator.SetTrigger (shrekMode + "Kick");
     }
 
     public void TakeDamage(int damage) {
-        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , took damage.");
         this.health -= damage;
     }
 
