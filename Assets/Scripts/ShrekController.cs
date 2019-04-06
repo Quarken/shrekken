@@ -52,17 +52,15 @@ public class ShrekController : MonoBehaviour
     }
 
     public void takeDamage(int damage) {
-        print("take damage");
         this.health -= damage;
+        print("take damage " + this.health);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        print("enter " + col.gameObject.tag);
         if (col.gameObject.tag == ground) isGrounded = true;
     }
 
     void OnCollisionExit2D(Collision2D col) {
-        print("exit " + col.gameObject.tag);
         if (col.gameObject.tag == ground) isGrounded = false;
     }
 
