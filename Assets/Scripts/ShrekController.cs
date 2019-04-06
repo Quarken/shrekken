@@ -45,9 +45,11 @@ public class ShrekController : NetworkBehaviour
         print("Punch");
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
+            print("shrekkyboi");
             if (this.gameObject == shrek) continue;
+            print("found shrek 1");
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
-            print("found shrek");
+            print("found shrek 2");
             ShrekController script = gameObject.GetComponent<ShrekController>(); 
             script.CmdTakeDamage(punchDamage);
         }
