@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int match_time = 60;
     public Text timerText;
     public Text endText;
+    public GameObject backButton;
 
     public ShrekController playerOne;
     public ShrekController playerTwo;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        backButton.SetActive(false);   
         StartMatch();
     }
 
@@ -58,5 +61,10 @@ public class GameManager : MonoBehaviour
         StopCoroutine("Timer");
         endText.text = endTextsList[Random.Range(0,endTextsList.Length)];
         isOngoing = false;
+        backButton.SetActive(true);
+    }
+
+    public void GoBack() {
+        SceneManager.LoadScene("CreateJoin");
     }
 }
