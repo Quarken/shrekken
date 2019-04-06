@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class ShrekController : NetworkBehaviour {
+public class ShrekController : MonoBehaviour {
 
+    public string left;
+    public string right;
+    public string up;
+    public string punch;
+    public string kick;
     private string shrek = "Shrek";
     private int gravity = 100;
     private Rigidbody2D rb;
@@ -18,7 +22,6 @@ public class ShrekController : NetworkBehaviour {
     float punchDistance = 20f;
     int punchDamage = 10;
     bool freezeMovement = false;
-    [SyncVar]
     int health = 100;
 
     private float walkAnimationTreshold = 40f;
@@ -35,19 +38,18 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
-        if (!freezeMovement) {
+        if (!freezeMovement) {}
             // Left
-            if (Input.GetKey (KeyCode.LeftArrow)) {
+            if (Input.GetKey(left)) {
                 if (rb.velocity.x > -maxSpeed) {
                     rb.AddForce (new Vector2 (-speed, 0));
                 }
             }
 
-            // Right
-            if (Input.GetKey (KeyCode.RightArrow)) {
-                if (rb.velocity.x < maxSpeed) {
-                    rb.AddForce (new Vector2 (speed, 0));
-                }
+        // Right
+        if (Input.GetKey(right)) {
+            if (rb.velocity.x < maxSpeed) {
+                rb.AddForce (new Vector2 (speed, 0));
             }
 
             // Walk animations
@@ -57,23 +59,23 @@ public class ShrekController : NetworkBehaviour {
             else {
                 animator.SetBool ("IsWalking", false);
             }
+        }
 
-            // Jump
-            if (Input.GetKey (KeyCode.UpArrow) && isGrounded) {
-                rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
-            }
-            // Jump animation
-            if (Input.GetKeyDown (KeyCode.UpArrow)) {
-                animator.SetTrigger (shrekMode + "Jump");
-            }
-            if (Input.GetKeyDown(KeyCode.Z)) {
-                Punch();
-            }
+        // Jump
+        if (Input.GetKey(up) && isGrounded) {
+            rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+        }
+        // Jump animation
+        if (Input.GetKeyDown(up)) {
+            animator.SetTrigger (shrekMode + "Jump");
+        }
+        if (Input.GetKeyDown(punch)) {
+            Punch();
+        }
 
-            // Kick animation
-            if (Input.GetKeyDown(KeyCode.A)) {
-                Kick();
-            }
+        // Kick animation
+        if (Input.GetKeyDown(kick)) {
+            Kick();
         }
         animator.SetBool ("IsGrounded", isGrounded);
     }
@@ -92,7 +94,7 @@ public class ShrekController : NetworkBehaviour {
             if (Vector2.Distance(transform.position, shrek.transform.position) > punchDistance) continue;
             print("found shrek");
             ShrekController script = gameObject.GetComponent<ShrekController>(); 
-            script.CmdTakeDamage(punchDamage);
+            script.TakeDamage(punchDamage);
         }
         StartCoroutine(freeze(0.5f));
         animator.SetTrigger (shrekMode + "Punch");
@@ -105,17 +107,7 @@ public class ShrekController : NetworkBehaviour {
         StartCoroutine(freeze(0.5f));
     }
 
-    [Command]
-    public void CmdPunch() {
-        GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
-        foreach (var shrek in shreks) {
-            if (this.gameObject == shrek) continue;
-            shrek.GetComponent<ShrekController>().TakeDamage(10);
-        }
-    }
-
     public void TakeDamage(int damage) {
-        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , took damage.");
         this.health -= damage;
     }
 
