@@ -150,7 +150,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = true;
         Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
-        StartCoroutine (freeze (0.3f));
+        StartCoroutine (freeze (0.45f));
     }
 
     public void TakeDamage(int damage) {
