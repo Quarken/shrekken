@@ -207,7 +207,18 @@ public class ShrekController : MonoBehaviour {
             SpawnBloodSprite();
         }
 
-        mainCameraSound.PlayItsOgre();
+        StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
+    }
+
+    IEnumerator turnDownBackgroundMusicAndPlayAllGore () {
+        if (mainCameraSound.backgroundSound.volume != 0) {
+        yield return new WaitForSeconds (0.1f);
+        mainCameraSound.backgroundSound.volume -= 0.05f;
+        StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
+        }
+        else {
+            mainCameraSound.PlayItsOgre();
+        }
     }
 
     private void SpawnBloodSprite() {
