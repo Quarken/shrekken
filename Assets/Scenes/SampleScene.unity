@@ -482,12 +482,37 @@ PrefabInstance:
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: down
-      value: down
+      value: s
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: shrekMode
       value: Shreikh
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: left
+      value: a
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: right
+      value: d
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: up
+      value: w
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: punch
+      value: v
+      objectReference: {fileID: 0}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: kick
+      value: b
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
@@ -2679,27 +2704,27 @@ PrefabInstance:
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: left
-      value: a
+      value: left
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: right
-      value: d
+      value: right
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: up
-      value: w
+      value: up
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: punch
-      value: q
+      value: ','
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: kick
-      value: e
+      value: .
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
@@ -2709,7 +2734,7 @@ PrefabInstance:
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: down
-      value: s
+      value: down
       objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}

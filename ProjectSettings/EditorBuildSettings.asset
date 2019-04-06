@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: df2afbd0169f04f708ff68e1b51b5b7b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartMenu.unity
     guid: 748bbff6189c09042a2af3e6d00dcf1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CreateJoin.unity
     guid: 12a83c3f0bf069e44843811dc02c4230
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Help.unity
     guid: 5e00b53945d04cc4994d07c4c4dba11b
   m_configObjects: {}
