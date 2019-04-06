@@ -124,21 +124,6 @@ public class ShrekController : MonoBehaviour {
         StartCoroutine (freeze (0.5f));
     }
 
-<<<<<<< HEAD
-    public void TakeDamage(int damage) {
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
-        healthSlider.value = health;
-        if(health <= 0) OnDeath();
-        
-        print("takedamage " + this.health + " " + this.healthSlider.value);
-    }
-
-    private void OnDeath() {
-        rb.rotation = -90;
-    }
-
-    void OnCollisionEnter2D(Collision2D col) {
-=======
     public void TakeDamage (int damage) {
         this.health -= damage;
         healthSlider.value = this.health;
@@ -146,7 +131,6 @@ public class ShrekController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D (Collision2D col) {
->>>>>>> 70cf57c9d47c25917184f031eb3010bfc38eb934
         if (col.gameObject.tag == ground) isGrounded = true;
     }
 
