@@ -11,17 +11,17 @@ public class ShrekController : NetworkBehaviour {
     private bool isGrounded = false;
     private bool isWalking = false;
     private string ground = "Ground";
-    private string shrekMode = "Shrek";
+    private string shrekMode = "Shrump";
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 100f;
-    float punchDistance = 200f;
+    float punchDistance = 20f;
     int punchDamage = 10;
     bool freezeMovement = false;
     [SyncVar]
     int health = 100;
 
-    private float walkAnimationTreshold = 20f;
+    private float walkAnimationTreshold = 40f;
 
     private Animator animator;
 
@@ -106,9 +106,17 @@ public class ShrekController : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdTakeDamage(int damage) {
+    public void CmdPunch() {
+        GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
+        foreach (var shrek in shreks) {
+            if (this.gameObject == shrek) continue;
+            shrek.GetComponent<ShrekController>().TakeDamage(10);
+        }
+    }
+
+    public void TakeDamage(int damage) {
+        print("I, " + this.GetComponent<NetworkIdentity>().netId.ToString() + " , took damage.");
         this.health -= damage;
-        print("take damage " + this.health);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
