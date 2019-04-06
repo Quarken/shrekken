@@ -25,7 +25,11 @@ public class ShrekController : MonoBehaviour {
     int kickDamage = 15;
     bool freezeMovement = false;
     int health = 100;
+<<<<<<< HEAD
     string direction = "right";
+=======
+    public int maxHealth = 100;
+>>>>>>> 685aa4561d1d7dee13ca9dd49d5ff6065c977dc6
 
     private float walkAnimationTreshold = 40f;
     private Animator animator;
