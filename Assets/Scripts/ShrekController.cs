@@ -34,8 +34,7 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
-
-        if(!isClient) return;
+        if(!isLocalPlayer) return;
 
         // Left
         if (Input.GetKey (KeyCode.LeftArrow)) {
