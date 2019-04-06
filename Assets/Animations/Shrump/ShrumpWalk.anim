@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShrumpIdle
+  m_Name: ShrumpWalk
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
-    - time: 1
-      value: {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
+      value: {fileID: 21300000, guid: bde28672113fb445ebe630ce0d85526e, type: 3}
+    - time: 0.13333334
+      value: {fileID: 21300000, guid: dd533a57c55ac4112ba382c6c3c9bc32, type: 3}
+    - time: 0.26666668
+      value: {fileID: 21300000, guid: bde28672113fb445ebe630ce0d85526e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,14 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
-    - {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
+    - {fileID: 21300000, guid: bde28672113fb445ebe630ce0d85526e, type: 3}
+    - {fileID: 21300000, guid: dd533a57c55ac4112ba382c6c3c9bc32, type: 3}
+    - {fileID: 21300000, guid: bde28672113fb445ebe630ce0d85526e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0166667
+    m_StopTime: 0.28333336
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
