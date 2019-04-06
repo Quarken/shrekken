@@ -8,6 +8,7 @@ public class ShrekController : MonoBehaviour {
     public string left;
     public string right;
     public string up;
+    public string down;
     public string punch;
     public string kick;
     private string shrek = "Shrek";
@@ -90,6 +91,12 @@ public class ShrekController : MonoBehaviour {
         if (Input.GetKeyDown (kick)) {
             Kick ();
         }
+
+        // Onion protection
+        if (Input.GetKeyDown (down)) {
+            Onion();
+        }
+
         animator.SetBool ("IsGrounded", isGrounded);
     }
 
@@ -128,6 +135,10 @@ public class ShrekController : MonoBehaviour {
         this.health -= damage;
         healthSlider.value = this.health;
         print ("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    void Onion() {
+        animator.SetTrigger (shrekMode + "Onion");
     }
 
     void OnCollisionEnter2D (Collision2D col) {
