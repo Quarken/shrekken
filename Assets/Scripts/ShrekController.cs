@@ -17,6 +17,7 @@ public class ShrekController : NetworkBehaviour {
     float jumpSpeed = 100f;
     float punchDistance = 200f;
     int punchDamage = 10;
+    bool freezeMovement = false;
     [SyncVar]
     int health = 100;
 
@@ -34,50 +35,56 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
+        if (!freezeMovement) {
+            // Left
+            if (Input.GetKey (KeyCode.LeftArrow)) {
+                if (rb.velocity.x > -maxSpeed) {
+                    rb.AddForce (new Vector2 (-speed, 0));
+                }
+            }
 
-        // Left
-        if (Input.GetKey (KeyCode.LeftArrow)) {
-            if (rb.velocity.x > -maxSpeed) {
-                rb.AddForce (new Vector2 (-speed, 0));
+            // Right
+            if (Input.GetKey (KeyCode.RightArrow)) {
+                if (rb.velocity.x < maxSpeed) {
+                    rb.AddForce (new Vector2 (speed, 0));
+                }
+            }
+
+            // Walk animations
+            if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
+                animator.SetBool ("IsWalking", true);
+            }
+            else {
+                animator.SetBool ("IsWalking", false);
+            }
+
+            // Jump
+            if (Input.GetKey (KeyCode.UpArrow) && isGrounded) {
+                rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+            }
+            // Jump animation
+            if (Input.GetKeyDown (KeyCode.UpArrow)) {
+                animator.SetTrigger (shrekMode + "Jump");
+            }
+            if (Input.GetKeyDown(KeyCode.Z)) {
+                Punch();
+            }
+
+            // Kick animation
+            if (Input.GetKeyDown(KeyCode.A)) {
+                Kick();
             }
         }
-
-        // Right
-        if (Input.GetKey (KeyCode.RightArrow)) {
-            if (rb.velocity.x < maxSpeed) {
-                rb.AddForce (new Vector2 (speed, 0));
-            }
-        }
-
-        // Walk animations
-        if (rb.velocity.x < -walkAnimationTreshold || rb.velocity.x > walkAnimationTreshold) {
-            animator.SetBool ("IsWalking", true);
-        }
-        else {
-            animator.SetBool ("IsWalking", false);
-        }
-
-        // Jump
-        if (Input.GetKey (KeyCode.UpArrow) && isGrounded) {
-            rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
-        }
-        // Jump animation
-        if (Input.GetKeyDown (KeyCode.UpArrow)) {
-            animator.SetTrigger (shrekMode + "Jump");
-        }
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            Punch();
-        }
-
-        // Kick animation
-        if (Input.GetKeyDown(KeyCode.X)) {
-            Kick();
-        }
-
         animator.SetBool ("IsGrounded", isGrounded);
-
     }
+
+    IEnumerator freeze(float time) {
+        yield return new WaitForSeconds(time);
+        freezeMovement = false;
+    }
+
     void Punch() {
+        freezeMovement = true;
         print("Punch");
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
@@ -87,10 +94,15 @@ public class ShrekController : NetworkBehaviour {
             ShrekController script = gameObject.GetComponent<ShrekController>(); 
             script.CmdTakeDamage(punchDamage);
         }
+        StartCoroutine(freeze(0.5f));
         animator.SetTrigger (shrekMode + "Punch");
+        
     }
+
     void Kick() {
+        freezeMovement = true;
         animator.SetTrigger (shrekMode + "Kick");
+        StartCoroutine(freeze(0.5f));
     }
 
     [Command]
