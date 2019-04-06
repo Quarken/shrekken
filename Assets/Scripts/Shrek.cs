@@ -37,13 +37,12 @@ public class Shrek : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
             rb.velocity = new Vector2(0, 0);
-            animator.Play("ShrekIdle");
+            animator.SetBool("isWalking", false);
             sprite.flipX = false;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
             //rb.velocity += Vector2.up*jumpHeight;
-            animator.Play("ShrekJump");
         } 
         if (Input.GetKeyDown(KeyCode.Z)) {
             animator.Play("ShrekPunch");
