@@ -10,8 +10,8 @@ public class ChooseCharacter : MonoBehaviour{
     public Sprite shreik;
     public Sprite shrump;
 
-    public string player1_name;
-    public string player2_name;
+    public string player1_name = "Shrek";
+    public string player2_name = "Shrek";
     
     private SpriteRenderer player1_sprite;
     private SpriteRenderer player2_sprite;
