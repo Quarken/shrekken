@@ -13,8 +13,8 @@ public class ShrekController : NetworkBehaviour {
     private string ground = "Ground";
     private string shrekMode = "Shrek";
     float speed = 600f;
-    float maxSpeed = 50f;
-    float jumpSpeed = 70f;
+    float maxSpeed = 75f;
+    float jumpSpeed = 100f;
     float punchDistance = 200f;
     int punchDamage = 10;
     [SyncVar]
@@ -34,10 +34,6 @@ public class ShrekController : NetworkBehaviour {
     }
 
     void FixedUpdate () {
-
-        float speed = 600f;
-        float maxSpeed = 75f;
-        float jumpSpeed = 150f;
 
         // Left
         if (Input.GetKey (KeyCode.LeftArrow)) {
