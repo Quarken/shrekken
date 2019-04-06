@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4047128712905990021}
   - component: {fileID: 4536545655930584405}
   - component: {fileID: 2689397948885482424}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shrek
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4047128712905990072}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
