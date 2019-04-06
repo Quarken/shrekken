@@ -111,6 +111,7 @@ public class ShrekController : MonoBehaviour {
     public void TakeDamage(int damage) {
         this.health -= damage;
         healthSlider.value = this.health;
+        print("takedamage " + this.health + " " + this.healthSlider.value);
     }
 
     void OnCollisionEnter2D(Collision2D col) {
