@@ -44,12 +44,19 @@ public class ShrekController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D> ();
         rb.drag = 5f;
         animator = GetComponent<Animator> ();
-        animator.SetTrigger (shrekMode + "Idle");
 
         isFlipped = false;
         isOnion = false;
 
         mainCameraSound = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<sound>();
+
+        if (name.Equals("PlayerOne")) {
+            shrekMode = PlayerInfo.player1;
+        }
+        if (name.Equals("PlayerTwo")) {
+            shrekMode = PlayerInfo.player2;
+        }
+        animator.SetTrigger (shrekMode + "Idle");
     }
 
     void rotateChar(string direction) {
