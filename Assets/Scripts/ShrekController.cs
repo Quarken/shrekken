@@ -36,9 +36,9 @@ public class ShrekController : MonoBehaviour {
     private Animator animator;
     public GameObject blood;
     public Slider healthSlider;
-
     private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
     public sound mainCameraSound;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start () {
@@ -143,6 +143,7 @@ public class ShrekController : MonoBehaviour {
     }
 
     void Attack(int damage) {
+        if (gameManager.match_time <= 0) return;
         GameObject[] shreks = GameObject.FindGameObjectsWithTag(shrek);
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
