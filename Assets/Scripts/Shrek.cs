@@ -22,15 +22,14 @@ public class Shrek : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isOnGround) {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) {
                 rb.velocity += new Vector2(-movSpeed, 0);
-                animator.Play("ShrekWalk");
+                animator.SetBool("isWalking", true);
                 sprite.flipX = true;
             }
             if (Input.GetKeyDown(KeyCode.RightArrow)) {
                 rb.velocity += new Vector2(movSpeed, 0);
-                animator.Play("ShrekWalk");
+                animator.SetBool("isWalking", true);
                 sprite.flipX = false;
             }
             if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
@@ -42,7 +41,12 @@ public class Shrek : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
                 animator.Play("ShrekJump");
             } 
-        }
+            if (Input.GetKeyDown(KeyCode.Z)) {
+                animator.Play("ShrekPunch");
+            }
+            if (Input.GetKeyDown(KeyCode.X)) {
+                animator.Play("ShrekKick");
+            }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
