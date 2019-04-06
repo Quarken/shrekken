@@ -19,7 +19,7 @@ public class ShrekController : MonoBehaviour {
     private bool isWalking = false;
     public bool isDead = false;
     private string ground = "Ground";
-    private string shrekMode;
+    private string shrekMode = "Shrek";
     float speed = 600f;
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
@@ -39,6 +39,7 @@ public class ShrekController : MonoBehaviour {
     private bool isFlipped; // Whether this shrek is flipped, false is right, true is left
     public sound mainCameraSound;
     public GameManager gameManager;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start () {
@@ -46,19 +47,17 @@ public class ShrekController : MonoBehaviour {
         rb.drag = 5f;
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isFlipped = false;
         isOnion = false;
 
         mainCameraSound = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<sound>();
 
-        if (name.Equals("PlayerOne")) {
+        if (name.Equals("PlayerOne") && !PlayerInfo.player1.Equals("")) {
             shrekMode = PlayerInfo.player1;
-            print("P1 = " + shrekMode);
         }
-        if (name.Equals("PlayerTwo")) {
+        if (name.Equals("PlayerTwo") && !PlayerInfo.player2.Equals("")) {
             shrekMode = PlayerInfo.player2;
-            print("P2 = " + shrekMode);
         }
         animator.SetTrigger (shrekMode + "Idle");
     }
@@ -175,8 +174,15 @@ public class ShrekController : MonoBehaviour {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         healthSlider.value = health;
         if(health <= 0) OnDeath();
-        
+        StartCoroutine (tookHitAnimation());
+        mainCameraSound.PlayHitSound();
         print("takedamage " + this.health + " " + this.healthSlider.value);
+    }
+
+    IEnumerator tookHitAnimation() {
+        spriteRenderer.color = new Color(255, 0, 0);
+        yield return new WaitForSeconds (0.1f);
+        spriteRenderer.color = new Color(255, 255, 255);
     }
 
     private void OnDeath() {

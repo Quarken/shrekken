@@ -7,6 +7,7 @@ public class sound : MonoBehaviour
     public AudioSource startSound;
     public AudioSource backgroundSound;
     public AudioSource itsOgreSound;
+    public AudioSource hitSound;
     public bool silent = false;    
     // Start is called before the first frame update
     void Start() {
@@ -26,4 +27,10 @@ public class sound : MonoBehaviour
     public void PlayItsOgre() {
         itsOgreSound.Play();
     }
+
+    public void PlayHitSound() {
+        print("didi");
+        hitSound.Play();
+    }
+
 }
