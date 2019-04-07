@@ -24,8 +24,8 @@ public class ShrekController : MonoBehaviour {
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
     float punchDistance = 13f;
-    float punchDamage = 10;
-    int kickDamage = 15;
+    float punchDamage = 2;
+    int kickDamage = 3;
     bool freezeMovement = false;
     float health = 100;
     string direction = "right";
@@ -175,7 +175,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = true;
         ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
-        StartCoroutine(freeze(0.3f));
+        StartCoroutine(freeze(0.5f));
     }
 
     void PunchEnd() {
