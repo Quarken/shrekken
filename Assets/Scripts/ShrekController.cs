@@ -175,7 +175,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = true;
         ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
-        StartCoroutine(freeze(0.3f));
+        StartCoroutine(freeze(0.5f));
     }
 
     void PunchEnd() {
