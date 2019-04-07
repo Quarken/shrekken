@@ -911,7 +911,7 @@ RectTransform:
   - {fileID: 1302852506}
   - {fileID: 1871782654}
   m_Father: {fileID: 970077114}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3173,14 +3173,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 830e68e6566db48eaa17e2530b3526a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3462,9 +3462,9 @@ RectTransform:
   - {fileID: 1263860200}
   - {fileID: 438544240}
   - {fileID: 1250885358}
-  - {fileID: 1894931337}
   - {fileID: 1282890789}
   - {fileID: 323455276}
+  - {fileID: 1894931337}
   - {fileID: 1056202679}
   - {fileID: 1498817187}
   - {fileID: 690362778}
@@ -4757,11 +4757,11 @@ RectTransform:
   - {fileID: 840500744}
   - {fileID: 1520606834}
   m_Father: {fileID: 970077114}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -210.00526, y: 10}
+  m_AnchoredPosition: {x: 210.01, y: 120}
   m_SizeDelta: {x: 95, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1282890790
@@ -4785,8 +4785,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.65882355, g: 0.40784314, b: 0.15294118, a: 0.9411765}
-    m_HighlightedColor: {r: 0.65882355, g: 0.40784314, b: 0.15294118, a: 0.9411765}
-    m_PressedColor: {r: 0.65882355, g: 0.40784314, b: 0.15294118, a: 0.9411765}
+    m_HighlightedColor: {r: 0.65882355, g: 0.40784314, b: 0.15294118, a: 0.98039216}
+    m_PressedColor: {r: 0.65882355, g: 0.40784314, b: 0.15294118, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4804,8 +4804,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: BackToMain
+      - m_Target: {fileID: 1870090799}
+        m_MethodName: selectShrobama
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6422,6 +6422,7 @@ MonoBehaviour:
   shrek: {fileID: 21300000, guid: 5f3ef6cccfabe49248339545a4902d5c, type: 3}
   shreik: {fileID: 21300000, guid: 32ee552c406c44534a670cacac8ae102, type: 3}
   shrump: {fileID: 21300000, guid: defae2a4b1e2f4ccd822e8758431f916, type: 3}
+  shrobama: {fileID: 21300000, guid: 830e68e6566db48eaa17e2530b3526a4, type: 3}
   player1_name: Shrek
   player2_name: Shrek
 --- !u!212 &1870090800
@@ -6725,11 +6726,11 @@ RectTransform:
   - {fileID: 2123736383}
   - {fileID: 2112936377}
   m_Father: {fileID: 970077114}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210.00526, y: 120.003}
+  m_AnchoredPosition: {x: -209.99998, y: 10}
   m_SizeDelta: {x: 95, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1894931338
