@@ -25,8 +25,8 @@ public class ShrekController : MonoBehaviour {
     float maxSpeed = 75f;
     float jumpSpeed = 160f;
     float punchDistance = 13f;
-    float punchDamage = 2;
-    int kickDamage = 3;
+    float punchDamage = 4;
+    int kickDamage = 6;
     bool freezeMovement = false;
     float health = 100;
     string direction = "right";
