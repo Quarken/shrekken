@@ -17,6 +17,7 @@ public class ShrekController : MonoBehaviour {
     private BoxCollider2D collider;
     private bool isGrounded = false;
     private bool isWalking = false;
+    private bool isPunching = false;
     public bool isDead = false;
     private string ground = "Ground";
     private string shrekMode = "Shrek";
@@ -88,10 +89,6 @@ public class ShrekController : MonoBehaviour {
 
     void Update () {
         if(isDead) return;
-
-        if (Input.GetKeyDown(KeyCode.T)) {
-            performUlt();
-        }
 
         if (!freezeMovement) {
             // Stop float
@@ -188,15 +185,17 @@ public class ShrekController : MonoBehaviour {
         if (doUlt) performUlt();
         freezeMovement = true;
         lastChargeStart = DateTime.Now;
+        isPunching = true;
         StartCoroutine(freeze(0.5f));
     }
 
     void PunchEnd() {
-        print("punchedn");
+        if (!isPunching) return;
         float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
         float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
         Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
         animator.SetTrigger (shrekMode + "Punch");
+        isPunching = false;
     }
     void Kick () {
         freezeMovement = true;
