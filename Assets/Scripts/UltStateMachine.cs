@@ -9,7 +9,7 @@ public class UltStateMachine {
     private DateTime lastState;
     private float kickDelta = 0.75f;
     private float punchDelta = 0.75f;
-    private float punchDuration = 1f;
+    private float punchDuration = 0f;
     private string kick = "kick";
     private string punchDown = "punchdown";
     private string punchUp = "punchup";
