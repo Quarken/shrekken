@@ -24,14 +24,19 @@ public class GameManager : MonoBehaviour
     public Text timerText;
     public Text endText;
     public GameObject backButton;
+    public GameObject replayButton;
 
     public ShrekController playerOne;
     public ShrekController playerTwo;
 
+    private Vector2 playerOneSpawn;
+    private Vector2 playerTwoSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
-        backButton.SetActive(false);   
+        playerOneSpawn = playerOne.transform.position;
+        playerTwoSpawn = playerTwo.transform.position;
         StartMatch();
     }
 
@@ -53,7 +58,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void StartMatch() {
+        backButton.SetActive(false);   
+        replayButton.SetActive(false);
+        endText.text = "";
         match_time = 60;
+        timerText.text = match_time.ToString();
         isOngoing = true;
         StartCoroutine("Timer");
     }
@@ -62,9 +71,18 @@ public class GameManager : MonoBehaviour
         endText.text = endTextsList[Random.Range(0,endTextsList.Length)];
         isOngoing = false;
         backButton.SetActive(true);
+        replayButton.SetActive(true);
     }
 
     public void GoBack() {
         SceneManager.LoadScene("CreateJoin");
+    }
+
+    public void Replay() {
+        playerOne.transform.position = playerOneSpawn;
+        playerTwo.transform.position = playerTwoSpawn;
+        playerOne.Revive();
+        playerTwo.Revive();
+        StartMatch();
     }
 }

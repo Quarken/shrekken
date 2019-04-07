@@ -129,17 +129,19 @@ public class ShrekController : MonoBehaviour {
             if (Input.GetKeyDown (up)) {
                 animator.SetTrigger (shrekMode + "Jump");
             }
+
             if (Input.GetKeyDown (punch)) {
                 PunchStart();
-            }
-            if (Input.GetKeyUp(punch)) {
-                PunchEnd();
             }
 
             // Kick animation
             if (Input.GetKeyDown (kick)) {
                 Kick ();
             }
+        }
+
+        if (Input.GetKeyUp(punch)) {
+            PunchEnd();
         }
 
         // Onion protection
@@ -174,15 +176,14 @@ public class ShrekController : MonoBehaviour {
         ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
         StartCoroutine(freeze(0.3f));
-        animator.SetTrigger (shrekMode + "Punch");
-        
     }
 
     void PunchEnd() {
         print("punchedn");
         float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
         float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
-        Attack(punchDamage*(1.0f + chargeFactor+maxChargeFactor));
+        Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
+        animator.SetTrigger (shrekMode + "Punch");
         bool doUlt = ultStateMachine.PunchUp();
         if (doUlt) performUlt();
     }
@@ -237,6 +238,13 @@ public class ShrekController : MonoBehaviour {
             var sexy = Resources.Load<Sprite>("Sprites/Background/sexy");
             backgroundRenderer.sprite = sexy;
         }
+    }
+
+    public void Revive() {
+        isDead = false;
+        health = maxHealth;
+        rb.rotation = 0;
+        healthSlider.value = health;
     }
 
     IEnumerator turnDownBackgroundMusicAndPlayAllGore () {
