@@ -89,6 +89,10 @@ public class ShrekController : MonoBehaviour {
     void Update () {
         if(isDead) return;
 
+        if (Input.GetKeyDown(KeyCode.T)) {
+            performUlt();
+        }
+
         if (!freezeMovement) {
             // Stop float
             if (!Input.GetKey(left) && !Input.GetKey(right) && isGrounded) {
