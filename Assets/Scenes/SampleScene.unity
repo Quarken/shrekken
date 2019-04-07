@@ -587,6 +587,7 @@ MonoBehaviour:
   replayButton: {fileID: 1727713674}
   playerOne: {fileID: 2035162054}
   playerTwo: {fileID: 1601753287}
+  soundManager: {fileID: 519420030}
 --- !u!4 &128152229
 Transform:
   m_ObjectHideFlags: 0

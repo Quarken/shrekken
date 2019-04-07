@@ -242,12 +242,15 @@ public class ShrekController : MonoBehaviour {
 
         StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
         print("dead " + name.Equals("PlayerOne") + " " + name.Equals("Player1") + " " + PlayerInfo.player1 + " " + PlayerInfo.player2);
+        
+        /*
         bool trump1 = name.Equals("PlayerOne") && PlayerInfo.player2.Equals("Shrump");
         bool trump2 = name.Equals("PlayerTwo") && PlayerInfo.player1.Equals("Shrump");
         if (trump1 || trump2) {
             var sexy = Resources.Load<Sprite>("Sprites/Background/sexy");
             backgroundRenderer.sprite = sexy;
         }
+         */
     }
 
     public void Revive() {
