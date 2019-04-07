@@ -95,7 +95,6 @@ public class ShrekController : MonoBehaviour {
             if (!Input.GetKey(left) && !Input.GetKey(right) && isGrounded) {
                 rb.velocity = Vector2.zero;
             }
-
             // Left
             if (Input.GetKey (left)) {
                 if (direction != "left") {
@@ -106,7 +105,6 @@ public class ShrekController : MonoBehaviour {
                     rb.AddForce (new Vector2 (-speed, 0));
                 }
             }
-
             // Right
             if (Input.GetKey (right)) {
                 if (direction != "right") {
@@ -123,7 +121,6 @@ public class ShrekController : MonoBehaviour {
             } else {
                 animator.SetBool ("IsWalking", false);
             }
-
             // Jump
             if (Input.GetKey (up) && isGrounded) {
                 rb.velocity = Vector3.zero;
@@ -135,25 +132,27 @@ public class ShrekController : MonoBehaviour {
                 animator.SetTrigger (shrekMode + "Jump");
             }
 
+            // Ultimate
+            if (Input.GetKeyDown (punch) && Input.GetKeyDown (kick)) {
+                performUlt();
+            }
+            // Punch part 1
             if (Input.GetKeyDown (punch)) {
                 PunchStart();
             }
-
+            // Punch part 2
+            if (Input.GetKeyDown(punch)) {
+               PunchEnd();
+            }
             // Kick animation
             if (Input.GetKeyDown (kick)) {
                 Kick ();
+            } 
+            // Onion protection
+            if (Input.GetKeyDown (down)) {
+                Onion();
             }
         }
-
-        if (Input.GetKeyUp(punch)) {
-            PunchEnd();
-        }
-
-        // Onion protection
-        if (Input.GetKeyDown (down)) {
-            Onion();
-        }
-
         animator.SetBool ("IsGrounded", isGrounded);
     }
 
@@ -181,19 +180,20 @@ public class ShrekController : MonoBehaviour {
         }
     }
     void PunchStart() {
-        bool doUlt = ultStateMachine.PunchDown();
-        if (doUlt) performUlt();
+        //bool doUlt = ultStateMachine.PunchDown();
+        //if (doUlt) performUlt();
         freezeMovement = true;
-        lastChargeStart = DateTime.Now;
+        //lastChargeStart = DateTime.Now;
         isPunching = true;
         StartCoroutine(freeze(0.5f));
     }
 
     void PunchEnd() {
-        if (!isPunching) return;
-        float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
-        float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
-        Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
+        //if (!isPunching) return;
+        //float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
+        //float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
+        //Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
+        Attack(punchDamage);
         animator.SetTrigger (shrekMode + "Punch");
         isPunching = false;
     }
