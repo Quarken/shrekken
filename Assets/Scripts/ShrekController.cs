@@ -49,6 +49,7 @@ public class ShrekController : MonoBehaviour {
 
     private float ultSpeed = 50;
     private float ultDamage = 50;
+    public SpriteRenderer backgroundRenderer;
 
     // Start is called before the first frame update
     void Start () {
@@ -229,6 +230,13 @@ public class ShrekController : MonoBehaviour {
         }
 
         StartCoroutine(turnDownBackgroundMusicAndPlayAllGore());
+        print("dead " + name.Equals("PlayerOne") + " " + name.Equals("Player1") + " " + PlayerInfo.player1 + " " + PlayerInfo.player2);
+        bool trump1 = name.Equals("PlayerOne") && PlayerInfo.player2.Equals("Shrump");
+        bool trump2 = name.Equals("PlayerTwo") && PlayerInfo.player1.Equals("Shrump");
+        if (trump1 || trump2) {
+            var sexy = Resources.Load<Sprite>("Sprites/Background/sexy");
+            backgroundRenderer.sprite = sexy;
+        }
     }
 
     IEnumerator turnDownBackgroundMusicAndPlayAllGore () {

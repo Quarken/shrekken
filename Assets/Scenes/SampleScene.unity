@@ -529,6 +529,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 128152228}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: backgroundRenderer
+      value: 
+      objectReference: {fileID: 1985190193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
 --- !u!1 &128152227
@@ -3222,5 +3227,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 128152228}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: backgroundRenderer
+      value: 
+      objectReference: {fileID: 1985190193}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
