@@ -10,6 +10,7 @@ public class ChooseCharacter : MonoBehaviour{
     public Sprite shrek;
     public Sprite shreik;
     public Sprite shrump;
+    public Sprite shrobama;
 
     public string player1_name = "Shrek";
     public string player2_name = "Shrek";
@@ -84,5 +85,18 @@ public class ChooseCharacter : MonoBehaviour{
         counter++;
     }
 
+    public void selectShrobama() {
+        if (counter % 2 == 0) {
+            player1_sprite.sprite = shrobama;
+            player1_name = "Shrobama";
+            player1_text.text = "Shrobama";
+        }
+        else {
+            player2_sprite.sprite = shrobama;
+            player2_name = "Shrobama";
+            player2_text.text = "Shrobama";
+        }
+        counter++;
+    }
     
 }
