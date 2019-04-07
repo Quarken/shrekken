@@ -180,8 +180,9 @@ public class ShrekController : MonoBehaviour {
         }
     }
     void PunchStart() {
+        bool doUlt = ultStateMachine.PunchDown();
+        if (doUlt) performUlt();
         freezeMovement = true;
-        ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
         StartCoroutine(freeze(0.5f));
     }
@@ -192,8 +193,6 @@ public class ShrekController : MonoBehaviour {
         float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
         Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
         animator.SetTrigger (shrekMode + "Punch");
-        bool doUlt = ultStateMachine.PunchUp();
-        if (doUlt) performUlt();
     }
     void Kick () {
         freezeMovement = true;
