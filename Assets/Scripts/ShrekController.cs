@@ -44,6 +44,11 @@ public class ShrekController : MonoBehaviour {
     public sound mainCameraSound;
     public GameManager gameManager;
     private SpriteRenderer spriteRenderer;
+    private UltStateMachine ultStateMachine = new UltStateMachine();
+    public GameObject UltPrefab;
+
+    private float ultSpeed = 50;
+    private float ultDamage = 50;
 
     // Start is called before the first frame update
     void Start () {
@@ -155,7 +160,6 @@ public class ShrekController : MonoBehaviour {
         foreach (GameObject shrek in shreks) {
             if (this.gameObject == shrek) continue;
             var punchDirection = transform.position - shrek.transform.position;
-            print("direction: " + punchDirection + " " + collider.bounds.size.y/2);
             bool rightDirection = (punchDirection.x >= 0f) == (direction.Equals("left"));
             bool closeEnough = punchDirection.magnitude <= punchDistance;
             bool rightHeight = Math.Abs(punchDirection.y) <= collider.bounds.size.y/2;
@@ -166,22 +170,39 @@ public class ShrekController : MonoBehaviour {
     }
     void PunchStart() {
         freezeMovement = true;
+        ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
         StartCoroutine(freeze(0.3f));
         animator.SetTrigger (shrekMode + "Punch");
+        
     }
 
     void PunchEnd() {
+        print("punchedn");
         float chargeTime = Math.Min((float)(DateTime.Now - lastChargeStart).TotalSeconds, maxChargeTime);
         float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
         Attack(punchDamage*(1.0f + chargeFactor+maxChargeFactor));
+        bool doUlt = ultStateMachine.PunchUp();
+        if (doUlt) performUlt();
     }
-
     void Kick () {
         freezeMovement = true;
+        ultStateMachine.Kick();
         Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
         StartCoroutine (freeze (0.45f));
+    }
+    void performUlt() {
+        
+        float xDirection = direction.Equals("right") ? 1 : -1;
+        var x = rb.position.x + xDirection * (collider.bounds.size.x);
+        var y = rb.position.y + 3;
+        var pos = new Vector3(x, y, 0);
+        var ult = UnityEngine.Object.Instantiate(UltPrefab, pos, new Quaternion());
+        var ultRb = ult.GetComponent<Rigidbody2D>();
+        ultRb.velocity = new Vector2(xDirection*ultSpeed, 0f);
+        print("performUlt");
+        mainCameraSound.PlaySwampSound();
     }
 
     public void TakeDamage(float damage) {
@@ -239,8 +260,12 @@ public class ShrekController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
+        print("collusion " + col.gameObject.tag);
         if (col.gameObject.tag == ground) isGrounded = true;
-
+        if (col.gameObject.tag == "Ult") {
+            TakeDamage(ultDamage);
+            UnityEngine.Object.Destroy(col.gameObject);
+        }
         if(isDead) {
             SpawnBloodSprite();
         }

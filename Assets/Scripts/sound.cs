@@ -11,18 +11,21 @@ public class sound : MonoBehaviour
     public bool silent = false;    
     // Start is called before the first frame update
     void Start() {
-        if (silent) return;
         backgroundSound.Play();
-        StartCoroutine(PlayStartSound());
     }
 
-    IEnumerator PlayStartSound() {
-        yield return new WaitForSeconds(3);
+    public void PlaySwampSound() {
+        print("swamp");
+        startSound.Play(0);
+    }
+
+    /* public IEnumerator PlayStartSound() {
+        print("play start sound");
         backgroundSound.Pause();
-        startSound.Play(0);   
+        startSound.Play(0);
         yield return new WaitForSeconds(startSound.clip.length);
         backgroundSound.Play();
-    }
+    }*/
 
     public void PlayItsOgre() {
         itsOgreSound.Play();
