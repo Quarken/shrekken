@@ -49,7 +49,11 @@ public class ShrekController : MonoBehaviour {
 
     private float ultSpeed = 50;
     private float ultDamage = 50;
+    public Slider ultSlider;
     public SpriteRenderer backgroundRenderer;
+
+    private float ultCharge = 0;
+    private float ultChargeNeeded = 25;
 
     // Start is called before the first frame update
     void Start () {
@@ -168,12 +172,17 @@ public class ShrekController : MonoBehaviour {
             bool rightHeight = Math.Abs(punchDirection.y) <= collider.bounds.size.y/2;
             if (!rightDirection || !closeEnough || !rightHeight) continue;
             ShrekController script = shrek.GetComponent<ShrekController>();
-            if (!script.isOnion) script.TakeDamage(damage); // Only take damage if not onion (protected)
+            if (!script.isOnion) {
+                script.TakeDamage(damage); // Only take damage if not onion (protected)
+                ultCharge = Math.Min(ultCharge + damage, ultChargeNeeded);
+                ultSlider.value = ultCharge / ultChargeNeeded;
+            }
         }
     }
     void PunchStart() {
+        bool doUlt = ultStateMachine.PunchDown();
+        if (doUlt) performUlt();
         freezeMovement = true;
-        ultStateMachine.PunchDown();
         lastChargeStart = DateTime.Now;
         StartCoroutine(freeze(0.5f));
     }
@@ -184,8 +193,6 @@ public class ShrekController : MonoBehaviour {
         float chargeFactor = Math.Max(0, (chargeTime - minChargeTime)/(maxChargeTime - minChargeTime));
         Attack(punchDamage*(1.0f + chargeFactor*maxChargeFactor));
         animator.SetTrigger (shrekMode + "Punch");
-        bool doUlt = ultStateMachine.PunchUp();
-        if (doUlt) performUlt();
     }
     void Kick () {
         freezeMovement = true;
@@ -195,7 +202,9 @@ public class ShrekController : MonoBehaviour {
         StartCoroutine (freeze (0.45f));
     }
     void performUlt() {
-        
+        if (ultCharge < ultChargeNeeded) return;
+        ultCharge = 0;
+        ultSlider.value = ultCharge;
         float xDirection = direction.Equals("right") ? 1 : -1;
         var x = rb.position.x + xDirection * (collider.bounds.size.x);
         var y = rb.position.y + 3;
@@ -216,6 +225,10 @@ public class ShrekController : MonoBehaviour {
         print("takedamage " + this.health + " " + this.healthSlider.value);
     }
 
+    public void Reset() {
+        this.ultCharge = 0;
+        this.ultSlider.value = ultCharge;
+    }
     IEnumerator tookHitAnimation() {
         spriteRenderer.color = new Color(255, 0, 0);
         yield return new WaitForSeconds (0.1f);

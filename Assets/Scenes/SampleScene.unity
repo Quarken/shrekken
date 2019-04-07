@@ -534,6 +534,21 @@ PrefabInstance:
       propertyPath: backgroundRenderer
       value: 
       objectReference: {fileID: 1985190193}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: ultSlider
+      value: 
+      objectReference: {fileID: 293894395}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
 --- !u!1 &128152227
@@ -572,6 +587,7 @@ MonoBehaviour:
   replayButton: {fileID: 1727713674}
   playerOne: {fileID: 2035162054}
   playerTwo: {fileID: 1601753287}
+  soundManager: {fileID: 519420030}
 --- !u!4 &128152229
 Transform:
   m_ObjectHideFlags: 0
@@ -1041,7 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.025635757, g: 0.11764706, b: 0, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2259,7 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.02745098, g: 0.11764706, b: 0, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2450,7 +2466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9254902, g: 0.34509805, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2711,7 +2727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9254902, g: 0.34509805, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3644,6 +3660,21 @@ PrefabInstance:
       propertyPath: backgroundRenderer
       value: 
       objectReference: {fileID: 1985190193}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: ultSlider
+      value: 
+      objectReference: {fileID: 1175385252}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: m_Color.r

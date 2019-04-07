@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public ShrekController playerOne;
     public ShrekController playerTwo;
 
+    public sound soundManager;
+
     private Vector2 playerOneSpawn;
     private Vector2 playerTwoSpawn;
 
@@ -57,6 +59,13 @@ public class GameManager : MonoBehaviour
         EndMatch(WinState.DRAW);
     }
 
+    IEnumerator RestartMusic() {
+        while(soundManager.backgroundSound.volume < 1.0f) {
+            soundManager.backgroundSound.volume = Mathf.Clamp01(soundManager.backgroundSound.volume + 0.05f);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private void StartMatch() {
         backButton.SetActive(false);   
         replayButton.SetActive(false);
@@ -79,10 +88,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void Replay() {
+        playerOne.Reset();
+        playerTwo.Reset();
         playerOne.transform.position = playerOneSpawn;
         playerTwo.transform.position = playerTwoSpawn;
         playerOne.Revive();
         playerTwo.Revive();
+        StartCoroutine(RestartMusic());
         StartMatch();
     }
 }
