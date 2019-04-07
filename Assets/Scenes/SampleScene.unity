@@ -534,6 +534,21 @@ PrefabInstance:
       propertyPath: backgroundRenderer
       value: 
       objectReference: {fileID: 1985190193}
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: ultSlider
+      value: 
+      objectReference: {fileID: 293894395}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
 --- !u!1 &128152227
@@ -3589,6 +3604,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
       propertyPath: left
@@ -3644,20 +3674,20 @@ PrefabInstance:
       propertyPath: backgroundRenderer
       value: 
       objectReference: {fileID: 1985190193}
-    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
+    - target: {fileID: 8506117798788986973, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: ultSlider
+      value: 
+      objectReference: {fileID: 1175385252}
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
+    - target: {fileID: 7135669063594264235, guid: 06a7d20aa10cb4c02b677ece06790803,
         type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7838038857810279123, guid: 06a7d20aa10cb4c02b677ece06790803,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a7d20aa10cb4c02b677ece06790803, type: 3}
