@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void Replay() {
+        playerOne.Reset();
+        playerTwo.Reset();
         playerOne.transform.position = playerOneSpawn;
         playerTwo.transform.position = playerTwoSpawn;
         playerOne.Revive();

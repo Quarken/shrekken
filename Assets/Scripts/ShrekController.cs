@@ -225,6 +225,10 @@ public class ShrekController : MonoBehaviour {
         print("takedamage " + this.health + " " + this.healthSlider.value);
     }
 
+    public void Reset() {
+        this.ultCharge = 0;
+        this.ultSlider.value = ultCharge;
+    }
     IEnumerator tookHitAnimation() {
         spriteRenderer.color = new Color(255, 0, 0);
         yield return new WaitForSeconds (0.1f);
