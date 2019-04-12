@@ -48,13 +48,16 @@ public class ShrekController : MonoBehaviour {
     private UltStateMachine ultStateMachine = new UltStateMachine();
     public GameObject UltPrefab;
 
-    private float ultSpeed = 50;
+    private float ultSpeed = 100;
     private float ultDamage = 50;
     public Slider ultSlider;
     public SpriteRenderer backgroundRenderer;
 
     private float ultCharge = 0;
     private float ultChargeNeeded = 25;
+
+    private float damageMultiplier = 1;
+
 
     // Start is called before the first frame update
     void Start () {
@@ -133,7 +136,7 @@ public class ShrekController : MonoBehaviour {
             }
 
             // Ultimate
-            if (Input.GetKeyDown (punch) && Input.GetKeyDown (kick)) {
+            if (Input.GetKey (punch) && Input.GetKey (kick)) {
                 performUlt();
             }
             // Punch part 1
@@ -148,11 +151,12 @@ public class ShrekController : MonoBehaviour {
             if (Input.GetKeyDown (kick)) {
                 Kick ();
             } 
-            // Onion protection
-            if (Input.GetKeyDown (down)) {
-                Onion();
-            }
         }
+        // Onion protection
+        if (Input.GetKeyDown (down)) {
+            Onion();
+        }
+
         animator.SetBool ("IsGrounded", isGrounded);
     }
 
@@ -170,13 +174,19 @@ public class ShrekController : MonoBehaviour {
             bool rightDirection = (punchDirection.x >= 0f) == (direction.Equals("left"));
             bool closeEnough = punchDirection.magnitude <= punchDistance;
             bool rightHeight = Math.Abs(punchDirection.y) <= collider.bounds.size.y/2;
-            if (!rightDirection || !closeEnough || !rightHeight) continue;
             ShrekController script = shrek.GetComponent<ShrekController>();
-            if (!script.isOnion) {
-                script.TakeDamage(damage); // Only take damage if not onion (protected)
-                ultCharge = Math.Min(ultCharge + damage, ultChargeNeeded);
-                ultSlider.value = ultCharge / ultChargeNeeded;
+            if (!rightDirection || !closeEnough || !rightHeight || script.isOnion) continue;
+            script.TakeDamage(damage, damageMultiplier); // Only take damage if not onion (protected)
+            if (damageMultiplier > 1) {
+                if (damageMultiplier == 1.5) {
+                    damageMultiplier = 1f;
+                } else {
+                    damageMultiplier -= 2f;
+                }
             }
+            
+            ultCharge = Math.Min(ultCharge + damage, ultChargeNeeded);
+            ultSlider.value = ultCharge / ultChargeNeeded;
         }
     }
     void PunchStart() {
@@ -185,7 +195,7 @@ public class ShrekController : MonoBehaviour {
         freezeMovement = true;
         //lastChargeStart = DateTime.Now;
         isPunching = true;
-        StartCoroutine(freeze(0.5f));
+        StartCoroutine(freeze(0.3f));
     }
 
     void PunchEnd() {
@@ -202,7 +212,7 @@ public class ShrekController : MonoBehaviour {
         ultStateMachine.Kick();
         Attack(kickDamage);
         animator.SetTrigger (shrekMode + "Kick");
-        StartCoroutine (freeze (0.45f));
+        StartCoroutine (freeze (0.35f));
     }
     void performUlt() {
         if (ultCharge < ultChargeNeeded) return;
@@ -219,8 +229,9 @@ public class ShrekController : MonoBehaviour {
         mainCameraSound.PlaySwampSound();
     }
 
-    public void TakeDamage(float damage) {
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
+    public void TakeDamage(float damage, float multiplier) {
+        health = Mathf.Clamp(health - (damage * multiplier), 0, maxHealth);
+        damageMultiplier += 0.5f;
         healthSlider.value = health;
         if(health <= 0) OnDeath();
         StartCoroutine (tookHitAnimation());
@@ -298,7 +309,7 @@ public class ShrekController : MonoBehaviour {
         print("collusion " + col.gameObject.tag);
         if (col.gameObject.tag == ground) isGrounded = true;
         if (col.gameObject.tag == "Ult") {
-            TakeDamage(ultDamage);
+            TakeDamage(ultDamage, damageMultiplier);
             UnityEngine.Object.Destroy(col.gameObject);
         }
         if(isDead) {
